@@ -1,8 +1,12 @@
+//require("dotenv").config()
+//const { KEY } = process.env
+const { Genres } = require("../db")
 const videogames = require('./videogames.json');
+const genresjson = require('./genres.json')
 
 async function getVideogamesJson() {
     try{
-        const games = videogames.results.slice(0,10).map((e)=> {
+        const games = videogames.results.map((e)=> {
             return {
                 id: e.id,
                 name: e.name,
@@ -13,10 +17,27 @@ async function getVideogamesJson() {
                 rating: e.rating
             }
         })
-        console.log(games)
+        return games
     } catch (error) {
         console.log(error)
     }
 }
 
-module.exports = {getVideogamesJson}
+async function getGenres () {
+    try {
+        const listOfGenres = genresjson.results.map((e) => {
+            return {id: e.id, name: e.name}
+        });
+        if (!listOfGenres) {
+            throw Error("Not genres found")
+          } else {
+            Genres.bulkCreate(listOfGenres)
+            const listOfGenresFromDb = await Genres.findAll()
+            return listOfGenresFromDb
+          }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+module.exports = {getVideogamesJson, getGenres}
