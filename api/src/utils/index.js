@@ -1,12 +1,15 @@
 //require("dotenv").config()
 //const { KEY } = process.env
 const { Genres } = require("../db")
-const videogames = require('./videogames.json');
-const genresjson = require('./genres.json')
+const videogames = require('./videogames_100.json');
+const videogames2 = require('./videogames_100_page2.json');
+const videogames3 = require('./videogames_100_page3.json');
+const genresjson = require('./genres.json');
 
 async function getVideogamesJson() {
     try{
-        const games = videogames.results.map((e)=> {
+        const allgames = {results: [...videogames.results, ...videogames2.results, ...videogames3.results.slice(0,20)]}
+        const games = allgames.results.map((e)=> {
             return {
                 id: e.id,
                 name: e.name,
