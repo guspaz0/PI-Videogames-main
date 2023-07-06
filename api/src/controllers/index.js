@@ -1,7 +1,7 @@
-const {getAllvideogames, getVideogameByID} = require('./videogames')
+const {getAllvideogames, getVideogameByID, createVideogame} = require('./videogames')
 const {getGenresLocal} = require('./genres')
 
 module.exports = {
-    getAllvideogames, getVideogameByID,
+    getAllvideogames, getVideogameByID, createVideogame,
     getGenresLocal
 }
