@@ -2,7 +2,8 @@ import Axios from 'axios';
 import { findDOMNode } from 'react-dom';
 const {VITE_DB_HOST, VITE_DB_PORT} = import.meta.env
 export const ALLVIDEOGAMES = 'ALLVIDEOGAMES';
-export const FIND_VIDEOGAMES_BY_NAME = 'FIND_VIDEOGAMES_BY_NAME'
+export const FIND_VIDEOGAMES_BY_NAME = 'FIND_VIDEOGAMES_BY_NAME';
+export const VIDEOGAME_DETAIL = 'VIDEOGAME_DETAIL'
 
 export function getAllvideogames(){
     return async function (dispatch) {
@@ -19,6 +20,22 @@ export function getAllvideogames(){
         }
     };
 };
+export function VideogameDetail(id){
+    return async function (dispatch) {
+        try{    
+            const VideogameDetail = await Axios.get(`http://${VITE_DB_HOST}:${VITE_DB_PORT}/videogames/${id}`);
+            if (VideogameDetail.data) {
+                dispatch({
+                    type: VIDEOGAME_DETAIL,
+                    payload: VideogameDetail.data
+                })
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    };
+};
+
 export function findVideogames(name){
     return async function (dispatch) {
         try{    

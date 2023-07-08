@@ -1,5 +1,6 @@
 import { 
     ALLVIDEOGAMES,
+    VIDEOGAME_DETAIL,
     FIND_VIDEOGAMES_BY_NAME,
 
 } from './actions'
@@ -7,7 +8,8 @@ import {
 const initialState = {
     Videogames: [],
     CP_Videogames: [],
-    Search: []
+    Search: [],
+    Videogame_DETAIL: {},
 };
 
 export default function reducer(state = initialState, action) {
