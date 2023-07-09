@@ -1,4 +1,4 @@
-import './About.css'
+import { AboutStyle } from "./CSS"
 //import IMAGES from '../assets/aptitudes';
 
 
@@ -10,7 +10,7 @@ export default function About(){
     const aptitudes = ['javascript', 'postgres', 'sequelize', 'react', 'redux', 'node']
 
     return(
-    <div>
+    <AboutStyle>
         <h1>About</h1>
         <div className='about'>
             <div className='aboutMe'>
@@ -37,6 +37,6 @@ export default function About(){
             </div>
             
         </div>
-    </div>
+    </AboutStyle>
     )
 }

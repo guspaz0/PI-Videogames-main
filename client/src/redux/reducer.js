@@ -17,14 +17,20 @@ export default function reducer(state = initialState, action) {
         case ALLVIDEOGAMES:
             return {
                 ...state,
-                Videogames: [...state.Videogames, ...action.payload],
-                CP_Videogames: [...state.Videogames, ...action.payload]
+                Videogames: [...action.payload],
+                CP_Videogames: [...action.payload]
             }
         case FIND_VIDEOGAMES_BY_NAME:
 
             return {
                 ...state,
                 Search: [...action.payload],
+            }
+        case VIDEOGAME_DETAIL:
+            console.log(action.payload)
+            return {
+                ...state,
+                Videogame_DETAIL: action.payload
             }
     default:
         return state;

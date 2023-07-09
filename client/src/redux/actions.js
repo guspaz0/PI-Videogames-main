@@ -23,6 +23,7 @@ export function getAllvideogames(){
 export function VideogameDetail(id){
     return async function (dispatch) {
         try{    
+            console.log(id)
             const VideogameDetail = await Axios.get(`http://${VITE_DB_HOST}:${VITE_DB_PORT}/videogames/${id}`);
             if (VideogameDetail.data) {
                 dispatch({
