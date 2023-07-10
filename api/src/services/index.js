@@ -1,5 +1,6 @@
-const { GameID } = require('./idgame')
-const { getGenresAPI } = require('./genres')
-const { SearchGameName } = require('./searchgame')
+const GameID = require('./idgame')
+const GenresAPI = require('./genres')
+const searchGameName = require('./searchgame')
+const allGameService = require('./allGameService')
 
-module.exports = { GameID, getGenresAPI, SearchGameName }
+module.exports = { GameID, GenresAPI, searchGameName, allGameService }

@@ -2,7 +2,7 @@ require("dotenv").config()
 const { URL, KEY } = process.env;
 const Axios = require('axios');
 
-async function SearchGameName(name) {
+async function searchGameName(name) {
     try {
         const { data } = await Axios.get(`${URL}/games?search=${name}&key=${KEY}&page_size=15`)
         const Result = data.results.map((e) => {
@@ -24,4 +24,4 @@ async function SearchGameName(name) {
     }
 }
 
-module.exports = {SearchGameName}
+module.exports = searchGameName

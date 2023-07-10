@@ -1,5 +1,6 @@
 const {getGenres} = require('../utils')
 const {Genres} = require('../db')
+const {GenresAPI} = require('../services')
 
 async function getGenresLocal (req,res) {
     try{

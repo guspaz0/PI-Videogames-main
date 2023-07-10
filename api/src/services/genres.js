@@ -2,7 +2,7 @@ require("dotenv").config()
 const { URL, KEY } = process.env;
 const Axios = require('axios');
 
-async function getGenresAPI() {
+async function GenresAPI() {
     try{
         const { data } = await Axios.get(`${URL}/genres?key=${KEY}`)
         const listOfGenres = data.results.map((e) => {
@@ -14,4 +14,4 @@ async function getGenresAPI() {
     }
 }
 
-module.exports = {getGenresAPI}
+module.exports = GenresAPI

@@ -25,4 +25,4 @@ async function GameID(gameid) {
     }
 }
 
-module.exports = {GameID}
+module.exports = GameID

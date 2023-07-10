@@ -1,6 +1,7 @@
 const {getVideogamesJson} = require('../utils')
 const { Videogame, Genres } = require('../db')
 const { Op } = require('sequelize')
+const { GameID, allGameService, searchGameName } = require('../services')
 
 async function getAllvideogames(req,res) {
     try{

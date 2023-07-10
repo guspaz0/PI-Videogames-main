@@ -1,11 +1,10 @@
 require("dotenv").config()
 const { URL, KEY } = process.env
-const axios = require("axios")
+const Axios = require("axios")
 
-const gameService = async (name) => {
+const allGameService = async (name) => {
   if (name) {
-    const url = `${URL}/games?search=${name}&key=${KEY}&page_size=15`
-    const { data } = await axios.get(url)
+    const { data } = await Axios.get(`${URL}/games?search=${name}&key=${KEY}&page_size=15`)
     const arrayOfSearchGames = data.results.map(
       ({
         id,
@@ -32,7 +31,7 @@ const gameService = async (name) => {
   } else {
     let promises = [1, 2, 3, 4].map(
       async (e) =>
-        await axios.get(`${URL}/games?key=${KEY}&page_size=25&page=${e}`)
+        await Axios.get(`${URL}/games?key=${KEY}&page_size=25&page=${e}`)
     )
     response = await Promise.all(promises)
 
@@ -70,4 +69,4 @@ const gameService = async (name) => {
     }
   }
 }
-module.exports = gameService
+module.exports = allGameService
