@@ -1,6 +1,7 @@
 require("dotenv").config()
 const { URL, KEY } = process.env;
 const Axios = require('axios');
+const {Videogame} = require('../db')
 
 async function searchGameName(name) {
     try {
@@ -24,4 +25,27 @@ async function searchGameName(name) {
     }
 }
 
-module.exports = searchGameName
+async function searchGameNameDB(name) {
+    try {
+        const gamesDB = await Videogame.findAll({
+            where: {
+                name: {[Op.like]: `%${name}%`},
+                [Op.or]: [
+                    {name: {[Op.like]: `${name}%`}},
+                ]
+            },
+            includes: [{
+                model: Genres,
+                attributes: ['id', 'name'],
+                through: {
+                    attributes: []
+                }
+            }]
+        })
+        return gamesDB
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+module.exports = {searchGameName, searchGameNameDB}

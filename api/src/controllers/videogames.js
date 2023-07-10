@@ -54,18 +54,37 @@ async function getVideogameByID(req,res) {
 
 async function createVideogame (req,res) {
     try{
-        const {name,platforms, description, background_image, released, rating, genres} = req.body
-        const [game, created] = await Videogame.findOrCreate({where: {name,platforms, description, background_image, released, rating}})
-        if (created) {
-            genres.map((e) => {
-                game.addGenres(e.id)
-            })
-            res.status(201).json(game)
+        console.log(req.body)
+        const {name,platforms, description, background_image, released, rating, genres} = req.body;
+        if (
+            !name ||
+            !platforms ||
+            !description ||
+            !background_image ||
+            !released ||
+            !rating ||
+            !genres
+            ) {
+                res.status(400).json({error: 'Missing some data'})
         } else {
-            res.status(403).json({error: 'ya existe el objeto'})
+            const [game, created] = await Videogame.findOrCreate({where: {name,platforms, description, background_image, released, rating}})
+            if (created) {
+                genres.map((e) => {
+                    game.addGenres(e.id)
+                })
+                const Newgame = await Videogame.findAll({
+                    where: {id: game.id},
+                    include: {
+                        model: Genres,
+                        attributes: ['name'],
+                        through: { attributes: [] }
+                    }
+                })
+                res.status(201).json(Newgame)
+            } else {
+                res.status(403).json({error: 'ya existe el objeto'})
+            }
         }
-
-        
     } catch (error) {
         res.status(404).json({error: error.message})
     }

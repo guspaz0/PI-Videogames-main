@@ -32,10 +32,11 @@ module.exports = (sequelize) => {
     },
     released: {
         type: DataTypes.DATEONLY,
-        allowNull:true
+        allowNull: false
     },
     rating: {
-        type: DataTypes.DECIMAL(4,2)
+        type: DataTypes.DECIMAL(4,2),
+        allowNull: false
     }
   },
   {
