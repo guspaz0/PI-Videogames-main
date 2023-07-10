@@ -2,7 +2,7 @@ import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import Card from './Card';
 import {getAllvideogames} from '../redux/actions';
-import { HomeCards } from './CSS';
+import { HomeCards, PaginationStyle } from './CSS';
 
 
 export default function Home() {
@@ -21,7 +21,7 @@ export default function Home() {
         if (Videogames.length === 0) {
             dispatch(getAllvideogames())
         }
-    }, [dispatch])
+    }, [dispatch, maxPage])
 
     function handlePrevPage() {
         document.querySelector("input[name='page']").value = null
@@ -45,10 +45,12 @@ export default function Home() {
 
     return (
         <div>
-            <h1>Home Videogames PI</h1>
-            {maxPage > 0? <><button onClick={handlePrevPage} disabled={page === 0? true: false}>◀</button>
-                Pagina: <input name='page' type='text' style={{width: "30px"}} placeholder={page} onChange={handleSelectPage}/> de {maxPage}
-                <button onClick={handleNextPage} disabled={page === maxPage? true: false}>▶</button></>
+            {maxPage > 0? 
+                <PaginationStyle>
+                    <button onClick={handlePrevPage} disabled={page === 1? true: false}>◀</button>
+                    Pagina: <input name='page' type='text' style={{width: "30px"}} placeholder={page} onChange={handleSelectPage}/> de {maxPage}
+                    <button onClick={handleNextPage} disabled={page === maxPage? true: false}>▶</button>
+                </PaginationStyle>
             : null}
             <HomeCards>
                 {Videogames.length > 0? Videogames.slice((page-1)*PerPage,PerPage+(page-1)*PerPage).map((e) => {

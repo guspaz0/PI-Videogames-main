@@ -13,7 +13,7 @@ async function getVideogamesJson() {
                 id: e.id,
                 name: e.name,
                 description: e.description,
-                platforms: e.platforms,
+                platforms: e.parent_platforms,
                 background_image: e.background_image,   
                 released: e.released,
                 rating: e.rating,

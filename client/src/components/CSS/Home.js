@@ -1,12 +1,20 @@
 import styled from 'styled-components';
 
-export const NavbarStyle = styled.div`
-display: flex;
-flex-direction: row;
-justify-content: space-around;
-align-items: center;
-padding: 15px;
-button {
+export const HomeCards = styled.div`
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border-radius: 5px;
+    
+    padding: 5px;
+
+`
+export const PaginationStyle = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    button {
         color: white;
         background-color: black;
         border-radius: 5px;

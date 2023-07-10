@@ -1,12 +1,16 @@
 import styled from 'styled-components';
 
-export const NavbarStyle = styled.div`
-display: flex;
-flex-direction: row;
-justify-content: space-around;
-align-items: center;
-padding: 15px;
-button {
+export const LandingStyle = styled.div`
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    background-color: gray;
+    size: cover;
+    padding: 5px;
+    button {
         color: white;
         background-color: black;
         border-radius: 5px;
@@ -18,4 +22,5 @@ button {
         color: black;
         background-color: white;
     }
+
 `

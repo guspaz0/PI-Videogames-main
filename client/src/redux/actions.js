@@ -1,5 +1,4 @@
 import Axios from 'axios';
-import { findDOMNode } from 'react-dom';
 const {VITE_DB_HOST, VITE_DB_PORT} = import.meta.env
 export const ALLVIDEOGAMES = 'ALLVIDEOGAMES';
 export const FIND_VIDEOGAMES_BY_NAME = 'FIND_VIDEOGAMES_BY_NAME';
