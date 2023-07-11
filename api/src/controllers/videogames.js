@@ -9,20 +9,13 @@ async function getAllvideogames(req,res) {
 
         const gamesAPI = await getVideogamesJson()
         const gamesDB = await Videogame.findAll({
-            where: {
-                name: {[Op.like]: `%${name}%`},
-                [Op.or]: [
-                    {name: {[Op.like]: `${name}%`}},
-                ]
-            },
-            includes: [{
+            include: [{
                 model: Genres,
                 attributes: ['id', 'name'],
-                through: {
-                    attributes: []
-                }
+                through: {attributes: []}
             }]
         })
+
         const AllGames = [...gamesAPI, ...gamesDB]
 
         if (name) {
@@ -54,7 +47,6 @@ async function getVideogameByID(req,res) {
 
 async function createVideogame (req,res) {
     try{
-        console.log(req.body)
         const {name,platforms, description, background_image, released, rating, genres} = req.body;
         if (
             !name ||
@@ -67,22 +59,22 @@ async function createVideogame (req,res) {
             ) {
                 res.status(400).json({error: 'Missing some data'})
         } else {
-            const [game, created] = await Videogame.findOrCreate({where: {name,platforms, description, background_image, released, rating}})
-            if (created) {
+            const [Game, Created] = await Videogame.findOrCreate({where: {name, platforms, description, background_image, released, rating}})
+            if (Created) {
                 genres.map((e) => {
-                    game.addGenres(e.id)
+                    Game.addGenres(e.id)
                 })
                 const Newgame = await Videogame.findAll({
-                    where: {id: game.id},
+                    where: {id: Game.id},
                     include: {
                         model: Genres,
-                        attributes: ['name'],
-                        through: { attributes: [] }
+                        attributes: ['id','name'],
+                        through: {attributes: []},
                     }
                 })
-                res.status(201).json(Newgame)
+                    res.status(201).json(Newgame)
             } else {
-                res.status(403).json({error: 'ya existe el objeto'})
+                res.status(402).json({error: 'Game already created in DB'})
             }
         }
     } catch (error) {
