@@ -4,6 +4,7 @@ const videogames = require('./videogames_100.json');
 const videogames2 = require('./videogames_100_page2.json');
 const videogames3 = require('./videogames_100_page3.json');
 const genresjson = require('./genres.json');
+const platforms = require('./platforms.json')
 
 async function getVideogamesJson() {
     try{
@@ -37,4 +38,23 @@ async function getGenres () {
     }
 }
 
-module.exports = {getVideogamesJson, getGenres}
+async function getPlatforms () {
+    try{
+        const parent_platforms = platforms.results.map((e) => {
+            return {
+                id: e.id,
+                name: e.name,
+                platforms: e.platforms.map((x) => {
+                        return {
+                            id: x.id,
+                            name: x.name
+                        }
+                    })
+                
+            }
+        })
+        return parent_platforms
+    } catch (error) {console.log(error)}
+}
+
+module.exports = {getVideogamesJson, getGenres, getPlatforms}

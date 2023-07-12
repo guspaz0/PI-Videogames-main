@@ -1,6 +1,6 @@
 require("dotenv").config()
 const { URL, KEY } = process.env
-const Axios = require("axios")
+const Axios = require('axios')
 
 const allGameService = async (name) => {
   if (name) {

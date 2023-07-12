@@ -5,6 +5,7 @@ import { AboutStyle } from "./About";
 import { VideoGameCard } from "./Card";
 import { LandingStyle } from "./Landingpage";
 import { AppStyle } from "./App";
+import { FormStyle } from "./Form";
 
 export {
     HomeCards, PaginationStyle,
@@ -13,5 +14,6 @@ export {
     AboutStyle,
     VideoGameCard,
     LandingStyle,
-    AppStyle
+    AppStyle,
+    FormStyle
 }

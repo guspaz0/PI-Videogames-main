@@ -14,12 +14,14 @@ export default function Navbar() {
 
     return (
         <NavbarStyle>
-            <button>Create Video Game</button>
+            <NavLink to='/create'>
+                <button>Create Video Game</button>
+            </NavLink>
             <span>
                 <input type='search'/><button>Search</button>
             </span>
             <NavLink to='/home'>
-            <button>To Home</button>
+                <button>To Home</button>
             </NavLink>
         </NavbarStyle>
     )

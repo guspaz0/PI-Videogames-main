@@ -2,16 +2,18 @@ import Axios from 'axios';
 const {VITE_DB_HOST, VITE_DB_PORT} = import.meta.env
 export const ALLVIDEOGAMES = 'ALLVIDEOGAMES';
 export const FIND_VIDEOGAMES_BY_NAME = 'FIND_VIDEOGAMES_BY_NAME';
-export const VIDEOGAME_DETAIL = 'VIDEOGAME_DETAIL'
+export const VIDEOGAME_DETAIL = 'VIDEOGAME_DETAIL';
+export const GET_GENRES = 'GET_GENRES';
+export const GET_PLATFORMS = 'GET_PLATFORMS'
 
 export function getAllvideogames(){
     return async function (dispatch) {
         try{    
-            const allVideogames = await Axios.get(`http://${VITE_DB_HOST}:${VITE_DB_PORT}/videogames`);
-            if (allVideogames) {
+            const { data } = await Axios.get(`http://${VITE_DB_HOST}:${VITE_DB_PORT}/videogames`);
+            if (data) {
                 dispatch({
                     type: ALLVIDEOGAMES,
-                    payload: allVideogames.data
+                    payload: data
                 })
             }
         } catch (error) {
@@ -23,11 +25,11 @@ export function VideogameDetail(id){
     return async function (dispatch) {
         try{    
             console.log(id)
-            const VideogameDetail = await Axios.get(`http://${VITE_DB_HOST}:${VITE_DB_PORT}/videogames/${id}`);
-            if (VideogameDetail.data) {
+            const { data } = await Axios.get(`http://${VITE_DB_HOST}:${VITE_DB_PORT}/videogames/${id}`);
+            if (data) {
                 dispatch({
                     type: VIDEOGAME_DETAIL,
-                    payload: VideogameDetail.data
+                    payload: data
                 })
             }
         } catch (error) {
@@ -39,11 +41,44 @@ export function VideogameDetail(id){
 export function findVideogames(name){
     return async function (dispatch) {
         try{    
-            const findVideogameName = await Axios.get(`http://${VITE_DB_HOST}:${VITE_DB_PORT}/videogames?name=${name}`);
-            if (findVideogameName.data) {
+            const { data } = await Axios.get(`http://${VITE_DB_HOST}:${VITE_DB_PORT}/videogames?name=${name}`);
+            if (data) {
                 dispatch({
                     type: FIND_VIDEOGAMES_BY_NAME,
-                    payload: findVideogameName.data
+                    payload: data
+                })
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    };
+};
+export function getGenres(){
+    return async function (dispatch) {
+        try{    
+            const { data } = await Axios.get(`http://${VITE_DB_HOST}:${VITE_DB_PORT}/genres`);
+            console.log(data)
+            if (data) {
+                dispatch({
+                    type: GET_GENRES,
+                    payload: data
+                })
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    };
+};
+
+export function getPlatforms(){
+    return async function (dispatch) {
+        try{    
+            const { data } = await Axios.get(`http://${VITE_DB_HOST}:${VITE_DB_PORT}/platforms`);
+            console.log(data)
+            if (data) {
+                dispatch({
+                    type: GET_PLATFORMS,
+                    payload: data
                 })
             }
         } catch (error) {

@@ -2,12 +2,15 @@ import {
     ALLVIDEOGAMES,
     VIDEOGAME_DETAIL,
     FIND_VIDEOGAMES_BY_NAME,
-
+    GET_GENRES,
+    GET_PLATFORMS
 } from './actions'
 
 const initialState = {
     Videogames: [],
     CP_Videogames: [],
+    Genres: [],
+    Platforms: [],
     Search: [],
     Videogame_DETAIL: {},
 };
@@ -19,6 +22,16 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 Videogames: [...action.payload],
                 CP_Videogames: [...action.payload]
+            }
+        case GET_GENRES:
+            return {
+                ...state,
+                Genres: [...action.payload]
+            }
+        case GET_PLATFORMS:
+            return {
+                ...state,
+                Platforms: [...action.payload]
             }
         case FIND_VIDEOGAMES_BY_NAME:
 
