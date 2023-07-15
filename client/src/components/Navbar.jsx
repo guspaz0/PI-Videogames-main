@@ -14,15 +14,25 @@ export default function Navbar() {
 
     return (
         <NavbarStyle>
-            <NavLink to='/create'>
+            {location.pathname === '/create' &&
+                <NavLink to='/home'>
+                    <button>To Home</button>
+                </NavLink>
+            }
+            {location.pathname === '/home' && 
+            <>
+                <NavLink to='/create'>
                 <button>Create Video Game</button>
-            </NavLink>
-            <span>
-                <input type='search'/><button>Search</button>
-            </span>
-            <NavLink to='/home'>
-                <button>To Home</button>
-            </NavLink>
+                </NavLink>
+                <span>
+                    <input type='search'/><button>Search</button>
+                </span>
+                <NavLink to='/home'>
+                    <button>To Home</button>
+                </NavLink>
+            </>
+            }
+
         </NavbarStyle>
     )
 }

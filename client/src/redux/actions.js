@@ -57,7 +57,6 @@ export function getGenres(){
     return async function (dispatch) {
         try{    
             const { data } = await Axios.get(`http://${VITE_DB_HOST}:${VITE_DB_PORT}/genres`);
-            console.log(data)
             if (data) {
                 dispatch({
                     type: GET_GENRES,
@@ -74,7 +73,6 @@ export function getPlatforms(){
     return async function (dispatch) {
         try{    
             const { data } = await Axios.get(`http://${VITE_DB_HOST}:${VITE_DB_PORT}/platforms`);
-            console.log(data)
             if (data) {
                 dispatch({
                     type: GET_PLATFORMS,

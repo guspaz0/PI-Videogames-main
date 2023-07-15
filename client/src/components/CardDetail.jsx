@@ -23,9 +23,9 @@ export default function CardDetail() {
     //     VideogameDetail = dispatchedDetail
     // }
 
-    window.addEventListener('popstate', () => {
-        navigate('/home');
-    });
+    // window.addEventListener('popstate', () => {
+    //     navigate('/home');
+    // });
 
     return (
         <CardDetailStyle>

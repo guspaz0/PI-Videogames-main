@@ -26,17 +26,17 @@ const rootReducer = combineReducers({
     reducer
 });
 
-const persistedStore = loadFromLocalStorage();
+//const persistedStore = loadFromLocalStorage();
 const composed = composeWithDevTools(applyMiddleware(thunk));
 
 const store = createStore(
     reducer,
-    persistedStore,
+    //persistedStore,
     composed);
 
-store.subscribe(() => {
-    saveToLocalStorage(store.getState());
-});
+// store.subscribe(() => {
+//     saveToLocalStorage(store.getState());
+// });
 
 
 // const store = createStore(reducer, composed);
