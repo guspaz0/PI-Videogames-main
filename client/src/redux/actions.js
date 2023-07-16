@@ -4,7 +4,8 @@ export const ALLVIDEOGAMES = 'ALLVIDEOGAMES';
 export const FIND_VIDEOGAMES_BY_NAME = 'FIND_VIDEOGAMES_BY_NAME';
 export const VIDEOGAME_DETAIL = 'VIDEOGAME_DETAIL';
 export const GET_GENRES = 'GET_GENRES';
-export const GET_PLATFORMS = 'GET_PLATFORMS'
+export const GET_PLATFORMS = 'GET_PLATFORMS';
+export const POST_VIDEOGAME = 'POST_VIDEOGAME';
 
 export function getAllvideogames(){
     return async function (dispatch) {
@@ -73,6 +74,22 @@ export function getPlatforms(){
     return async function (dispatch) {
         try{    
             const { data } = await Axios.get(`http://${VITE_DB_HOST}:${VITE_DB_PORT}/platforms`);
+            if (data) {
+                dispatch({
+                    type: GET_PLATFORMS,
+                    payload: data
+                })
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    };
+};
+
+export function postVideogame(form){
+    return async function (dispatch) {
+        try{    
+            const { data } = await Axios.post(`http://${VITE_DB_HOST}:${VITE_DB_PORT}/videogames`, form);
             if (data) {
                 dispatch({
                     type: GET_PLATFORMS,

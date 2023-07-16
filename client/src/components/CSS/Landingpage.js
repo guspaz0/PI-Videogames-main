@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+//import videogame from '../../assets/video-games.jpeg'
 
 export const LandingStyle = styled.div`
     display: flex;
@@ -7,8 +8,7 @@ export const LandingStyle = styled.div`
     justify-content: center;
     align-items: center;
     border-radius: 5px;
-    background-color: gray;
-    size: cover;
+    //background-color: gray;
     padding: 5px;
     button {
         color: white;

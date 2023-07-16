@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getGenres, getPlatforms } from '../redux/actions';
+import { getGenres, getPlatforms, postVideogame } from '../redux/actions';
 import { FormStyle } from './CSS/Form';
 
 export default function Form() {
@@ -19,6 +19,7 @@ export default function Form() {
             name: null,
             background_image: null,
             description: null,
+            parent_platforms: [],
             platforms: [],
             released: null,
             rating: null,
@@ -43,20 +44,38 @@ export default function Form() {
     }
 
     function handlePlatformChange (e) {
-        const {value, checked} = e.target;
-        if (checked) {
-            const filter = Platforms.filter((e) => e.name === value)[0].name
-            setForm({
-                ...Form,
-                platforms: [...Form.platforms, filter]
-            })
-        } else {
-            const filter = Form.platforms.filter((e) => e !== value)
-            setForm({
-                ...Form,
-                platforms: [...filter]
-            })
+        const {value, name, checked} = e.target;
+        if (name === 'parent_platform') {
+            if (checked) {
+                const filter = Platforms.filter((e) => e.name === value)[0].name
+                setForm({
+                    ...Form,
+                    parent_platforms: [...Form.parent_platforms, filter]
+                })
+            } else {
+                const filter = Form.parent_platforms.filter((e) => e !== value)
+                setForm({
+                    ...Form,
+                    parent_platforms: [...filter]
+                })
+            }
         }
+        if (name === 'platform') {
+            if (checked) {
+                const filter = Platforms.map((e) => e.platforms.filter((x) => x.name === value))[0].name
+                setForm({
+                    ...Form,
+                    platforms: [...Form.parent_platforms, filter]
+                })
+            } else {
+                const filter = Form.platforms.filter((e) => e !== value)
+                setForm({
+                    ...Form,
+                    platforms: [...filter]
+                })
+            }
+        }
+
     }
 
     function handleGenresChange (e) {
@@ -78,38 +97,52 @@ export default function Form() {
 
     const Stars = ['⭐','⭐⭐','⭐⭐⭐','⭐⭐⭐⭐','⭐⭐⭐⭐⭐']
 
-    function handleSubmit() {
+    function handleSubmit(e) {
+        e.preventDefault()
+        const genresData = Form.genres.map((e) => Genres.find((x) => x.name === e))
+        const platformData = Form.parent_platforms.map((e) => Platforms.find((x) => x.name === e))
+        
+        console.log(platformData)
+        console.log(genresData)
+        
+        const FormData = {
+            ...Form,
+            platforms: platformData,
+            genres: genresData
+        }
+
 
     }
 
     return (
         <FormStyle>
-            <h1>Form component</h1>
-            <label>Name:</label> <input type='text' name='name' onChange={handleChange}/>
-            <label>Image:</label> <input type='url' name='background_image' onChange={handleChange}/>
-            {Form.background_image && <img src={Form.background_image} alt='img'/>}
-            <label>Description:</label> <textarea name='description' onChange={handleChange}/>
+            <h1>Create Video Game</h1>
+            <label>Name:</label>
+                <input type='text' name='name' onChange={handleChange}/>
+            <label>Image:</label>
+                <input type='url' name='background_image' onChange={handleChange}/>
+                {Form.background_image && <img src={Form.background_image} alt='img'/>}
+            <label>Description:</label>
+                <textarea name='description' onChange={handleChange}/>
             <label>Platforms:</label>
-            <p className='platforms'>
-            {/* <input type='search' onChange={handleSearch}/>
-            {Search? <select style={{height: '200px'}} name='platforms' multiple onChange={handleChange}>
-                {Search.map((s) => s.platforms.map((s2) => <option key={s2.id} value={s2.name}>{s2.name}</option>))}
-            </select> : null} */}
-            {Platforms.length > 0 && Platforms.map((e) => {return <span className='platform' key={e.id}>
-                <p >{e.name}<input type='checkbox' value={e.name} checked={Form.platforms.includes(e.name)} onChange={handlePlatformChange}/></p>
-                    {/* {e.platforms.map((x) => {return <p >{x.name}<input type='checkbox' name='platform'/></p>})} */}
-                </span>})
-                }
-            </p>
-            <label>Released:</label> <input type='date' name='released' onChange={handleChange}/>
-            <label>Rating:</label> <input defaultValue='0' type='range' max={5} name='rating' onChange={handleChange}/> {Stars[Form.rating-1]}
-            <label>Genres:</label><p className='platforms'>
-            {Genres.length > 0 && Genres.map((e) => {return <span className='platform' key={e.id}>
-                <p >{e.name}<input type='checkbox' value={e.name} checked={Form.genres.includes(e.name)} onChange={handleGenresChange}/></p>
-                    {/* {e.platforms.map((x) => {return <p >{x.name}<input type='checkbox' name='platform'/></p>})} */}
-                </span>})
-                }
-            </p>
+                <span className='platforms'>
+                {Platforms.length > 0 && Platforms.map((e) => {return <span className='parent_platform' key={e.id}>
+                        <p >{e.name}
+                            <input type='checkbox' name='parent_platform' value={e.name} checked={Form.parent_platforms.includes(e.name)} onChange={handlePlatformChange}/>
+                        </p>
+                            {Form.parent_platforms.includes(e.name) && e.platforms.map((x) => {return <p >{x.name}<input type='checkbox' value={x.name} name='platform' checked={Form.platforms.includes(x.name)} onChange={handlePlatformChange}/></p>})}
+                    </span>})}
+                </span>
+            <label>Released:</label>
+                <input type='date' name='released' onChange={handleChange}/>
+            <label>Rating:</label> 
+                <span className='rating'><input defaultValue='0' type='range' max={5} name='rating' onChange={handleChange}/> {Stars[Form.rating-1]}</span>
+            <label>Genres:</label>
+                <span className='genres'>
+                    {Genres.length > 0 && Genres.map((e) => {return <span className='genre' key={e.id}>
+                    <p >{e.name}<input type='checkbox' value={e.name} checked={Form.genres.includes(e.name)} onChange={handleGenresChange}/></p>
+                    </span>})}
+                </span>
             <button onClick={handleSubmit}>Submit</button>
         </FormStyle>
     )

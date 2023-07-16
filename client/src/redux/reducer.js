@@ -3,7 +3,8 @@ import {
     VIDEOGAME_DETAIL,
     FIND_VIDEOGAMES_BY_NAME,
     GET_GENRES,
-    GET_PLATFORMS
+    GET_PLATFORMS,
+    POST_VIDEOGAME
 } from './actions'
 
 const initialState = {
@@ -44,6 +45,12 @@ export default function reducer(state = initialState, action) {
             return {
                 ...state,
                 Videogame_DETAIL: action.payload
+            }
+        case POST_VIDEOGAME:
+            return {
+                ...state,
+                Videogames: [...state.Videogames, action.payload],
+                CP_Videogames: [...state.Videogames, action.payload]
             }
     default:
         return state;

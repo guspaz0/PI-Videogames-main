@@ -5,9 +5,8 @@ export const HomeCards = styled.div`
     flex-direction: row;
     flex-wrap: wrap;
     border-radius: 5px;
-    
     padding: 5px;
-
+    font-size: 20px;
 `
 export const PaginationStyle = styled.div`
     display: flex;

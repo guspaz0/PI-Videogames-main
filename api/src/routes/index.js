@@ -22,5 +22,4 @@ router.get('/genres', getGenresLocal);
 router.get('/platforms', parent_platforms);
 
 
-
 module.exports = router;
