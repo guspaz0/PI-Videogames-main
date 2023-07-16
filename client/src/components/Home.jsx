@@ -1,8 +1,9 @@
 import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import Card from './Card';
-import {getAllvideogames} from '../redux/actions';
+import {getAllvideogames, orderVideogames, filterVideogames} from '../redux/actions';
 import { HomeCards, PaginationStyle } from './CSS';
+import Load
 
 
 export default function Home() {
@@ -15,13 +16,19 @@ export default function Home() {
     const [maxPage, setMaxPage] = React.useState(Math.ceil(Videogames.length / PerPage))
     const [input, setInput] = React.useState(1)
 
-    const [Loading, setLoading] = React.useState(false)
+    const [Loading, setLoading] = React.useState(true)
+
+    React.useEffect(()=> {
+        dispatch(getAllvideogames())
+    }, [dispatch])
 
     React.useEffect(()=> {
         if (Videogames.length === 0) {
-            dispatch(getAllvideogames())
+            setLoading(true)
+        } else {
+            setLoading(false)
         }
-    }, [dispatch, maxPage])
+    },[Videogames])
 
     function handlePrevPage() {
         document.querySelector("input[name='page']").value = null
@@ -42,9 +49,28 @@ export default function Home() {
             setPage(parseInt(value))
         }
     }
+    function handleOrder(e){
+        e.preventDefault();
+        const {name,value} = e.target;
+        console.log(name, value)
+        dispatch(orderVideogames(value))
+    }
+    function handleFilter(e) {
+
+    }
 
     return (
         <div>
+            <span>
+                Order: 
+                <select name='order' onChange={handleOrder}>
+                    <option value='default'>default</option>
+                    <option value='A-Z'>A-Z</option>
+                    <option value='Z-A'>Z-A</option>
+                    <option value='Max Rating'>Max Rating</option>
+                    <option value='Min Rating'>Min Rating</option>
+                </select>
+            </span>
             {maxPage > 0? 
                 <PaginationStyle>
                     <button onClick={handlePrevPage} disabled={page === 1? true: false}>◀</button>

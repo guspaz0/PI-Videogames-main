@@ -27,34 +27,34 @@ export default function CardDetail() {
     //     navigate('/home');
     // });
 
+    const Stars = ['⭐','⭐⭐','⭐⭐⭐','⭐⭐⭐⭐','⭐⭐⭐⭐⭐']
+
     return (
         <CardDetailStyle>
             <h1>Game Detail</h1>
-            <h4>ID: {id}</h4>
-            <h2>{name}</h2>
+            <p>ID: {id}</p>
+            <p>{name}</p>
             <img src={background_image} alt='img'/>
             <span>
-                <h4>Description:</h4>
+                <p>Description:</p>
                 {description? 
-                <p dangerouslySetInnerHTML={description}></p>
-                : <p>not found</p>}
+                <text dangerouslySetInnerHTML={description}></text>
+                : <text>not found</text>}
             </span>
-            <span>
-                <h4>Platforms:</h4>
-                <ul className="platforms">{platforms.map((x) => {
-                    return <li key={x.platform.id}>{x.platform.name}</li>})}
-                </ul>
-            </span>
-            <span>
-                <p>Released: {released}</p>
-                <p>Rating: {rating}</p>
-            </span>
-            <span className="Genres">
-                Genres:
-                <ul>{genres.map((x) => {
-                    return <li key={x.id}>{x.name}</li>})}
-                </ul>
-            </span>
+
+            <ul type='circle' className="platforms">
+                <lh>Platforms:</lh>
+                {platforms.map((x) => {
+                return <li key={x.platform.id}>{x.platform.name}</li>})}
+            </ul>
+            <span><p>Released:</p> {released}</span>
+            <p>Rating: {rating} {Stars[Math.ceil(parseInt(rating))]}</p>
+            <ul type='square' className="Genres">
+                <lh>Genres:</lh>
+                {genres.map((x) => {
+                return <li key={x.id}>{x.name}</li>})}
+            </ul>
+
         </CardDetailStyle>
     )
 }

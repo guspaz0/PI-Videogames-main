@@ -6,6 +6,8 @@ export const VIDEOGAME_DETAIL = 'VIDEOGAME_DETAIL';
 export const GET_GENRES = 'GET_GENRES';
 export const GET_PLATFORMS = 'GET_PLATFORMS';
 export const POST_VIDEOGAME = 'POST_VIDEOGAME';
+export const ORDER_GAMES = 'ORDER_GAMES';
+export const FILTER_GAMES = 'FILTER_GAMES';
 
 export function getAllvideogames(){
     return async function (dispatch) {
@@ -101,3 +103,19 @@ export function postVideogame(form){
         }
     };
 };
+export function orderVideogames(direction) {
+    return function (dispatch){
+        dispatch({
+            type: ORDER_GAMES,
+            payload: direction
+        })
+    }
+}
+export function filterVideogames(condition) {
+    return function (dispatch){
+        dispatch({
+            type: FILTER_GAMES,
+            payload: condition
+        })
+    }
+}

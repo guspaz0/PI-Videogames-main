@@ -4,7 +4,9 @@ import {
     FIND_VIDEOGAMES_BY_NAME,
     GET_GENRES,
     GET_PLATFORMS,
-    POST_VIDEOGAME
+    POST_VIDEOGAME,
+    ORDER_GAMES,
+    FILTER_GAMES,
 } from './actions'
 
 const initialState = {
@@ -35,13 +37,12 @@ export default function reducer(state = initialState, action) {
                 Platforms: [...action.payload]
             }
         case FIND_VIDEOGAMES_BY_NAME:
-
             return {
                 ...state,
-                Search: [...action.payload],
+                Search: action.payload,
+                Videogames: action.payload,
             }
         case VIDEOGAME_DETAIL:
-            console.log(action.payload)
             return {
                 ...state,
                 Videogame_DETAIL: action.payload
@@ -51,6 +52,17 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 Videogames: [...state.Videogames, action.payload],
                 CP_Videogames: [...state.Videogames, action.payload]
+            }
+        case ORDER_GAMES:
+            let orderedList = state.Videogames.sort((a,b) => {
+                if (action.payload === "A-Z") return a.name.localeCompare(b.name);
+                if (action.payload === "Z-A") return b.name.localeCompare(a.name);
+                if (action.payload === "Max Rating") return b.rating - a.rating;
+                if (action.payload === "Min Rating") return a.rating - b.rating; 
+            })
+            return {
+                ...state,
+                Videogames: orderedList
             }
     default:
         return state;

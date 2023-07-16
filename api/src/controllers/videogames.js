@@ -6,7 +6,7 @@ const { Videogame, Genres } = require('../db')
 async function getAllvideogames(req,res) {
     try{
         const {name} = req.query
-
+        
         const gamesAPI = await getVideogamesJson()
         const gamesDB = await Videogame.findAll({
             include: [{
@@ -19,7 +19,7 @@ async function getAllvideogames(req,res) {
         const AllGames = [...gamesAPI, ...gamesDB]
 
         if (name) {
-            const result = AllGames.filter((e) => e.name.toLowerCase().includes(name)).slice(0,15)
+            const result = AllGames.filter((e) => e.name.toLowerCase().includes(name.toLowerCase())).slice(0,15)
             if (result.length === 0) {
                 res.status(500).send({message: "no se encontraron resultados"})
             } else {

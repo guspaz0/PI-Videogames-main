@@ -17,8 +17,15 @@ export const CardDetailStyle = styled.div`
     box-shadow: 2px 2px 5px black;
     text-shadow: 1px 1px 5px white;
     font-size: 20px;
+    p{
+        font-weight: bold;
+    }
     img {
         height: 300px;
         border-radius: 5px;
-    }
+    };
+
+    lh {
+        font-weight: bold;
+    };
 `
