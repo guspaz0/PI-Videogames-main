@@ -24,13 +24,13 @@ export default function Card(e){
     return(
         <VideoGameCard onClick={handleClick} key={id}>
             <div className="Card">
-                <img src={background_image} alt='img'/>
                 <h3>{name}</h3>
+                <img src={background_image} alt='img'/>
                 <span>
-                Genres:
-                <ul className="genres">{genres.map((x) => {
-                    return <li key={x.id}>{x.name}</li>})}
-                </ul>
+                <h4>Genres:</h4>
+                <span className="genres">{genres.map((x) => {
+                    return <p key={x.id}>{x.name}</p>})}
+                </span>
                 </span>
             </div>
         </VideoGameCard>

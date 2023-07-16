@@ -5,6 +5,7 @@ export const CardDetailStyle = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: auto;
     background-color: rgba(47, 0, 255, 0.8);
     padding: 15px;
     margin: 5px;

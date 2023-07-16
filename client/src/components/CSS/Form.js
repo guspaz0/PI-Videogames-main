@@ -5,6 +5,7 @@ export const FormStyle = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 5px;
     .platforms {
         display: flex;
         flex-direction: row;
@@ -22,5 +23,12 @@ export const FormStyle = styled.div`
             padding: 5px;
             margin: 5px;
         }
+    }
+    img {
+        width: 200px;
+        border-radius: 5px;
+        border-color: black;
+        border-style: solid;
+        border-width: 2px;
     }
 `

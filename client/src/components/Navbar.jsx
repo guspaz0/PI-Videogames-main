@@ -27,10 +27,15 @@ export default function Navbar() {
                 <span>
                     <input type='search'/><button>Search</button>
                 </span>
+                <NavLink to='/about'>
+                    <button>About</button>
+                </NavLink>
+            </>
+            }
+            {location.pathname.includes('/detail/') &&
                 <NavLink to='/home'>
                     <button>To Home</button>
                 </NavLink>
-            </>
             }
 
         </NavbarStyle>
