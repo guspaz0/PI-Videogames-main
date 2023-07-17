@@ -1,4 +1,4 @@
-import { AboutStyle } from "./CSS"
+import { AboutStyle } from "../CSS"
 //import IMAGES from '../assets/aptitudes';
 
 

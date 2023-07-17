@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getGenres, getPlatforms, postVideogame } from '../redux/actions';
-import { FormStyle } from './CSS/Form';
+import { FormStyle } from '../CSS';
 
 export default function Form() {
 

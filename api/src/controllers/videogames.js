@@ -37,7 +37,7 @@ async function getVideogameByID(req,res) {
     try{
         const {id} = req.params
         const games = await getVideogamesJson()
-        const gameID = games.filter((e) => e.id === Number(id))
+        const gameID = games.filter((e) => e.id === Number(id))[0]
 
         res.status(200).json(gameID)
     } catch (error) {

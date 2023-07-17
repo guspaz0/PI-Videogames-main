@@ -1,8 +1,8 @@
-import { AppStyle } from './components/CSS';
+import { AppStyle } from './CSS';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Landingpage from './components/LandingPage';
 import Home from './components/Home';
-import Card from './components/Card';
+import Error from './components/Error';
 import CardDetail from './components/CardDetail';
 import About from './components/About';
 import Form from './components/Form';

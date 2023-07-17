@@ -11,6 +11,8 @@ import {
 
 const initialState = {
     Videogames: [],
+    order: 'default',
+    filter: 'default',
     CP_Videogames: [],
     Genres: [],
     Platforms: [],
@@ -45,7 +47,7 @@ export default function reducer(state = initialState, action) {
         case VIDEOGAME_DETAIL:
             return {
                 ...state,
-                Videogame_DETAIL: action.payload
+                Videogame_DETAIL: {...action.payload}
             }
         case POST_VIDEOGAME:
             return {
@@ -54,15 +56,46 @@ export default function reducer(state = initialState, action) {
                 CP_Videogames: [...state.Videogames, action.payload]
             }
         case ORDER_GAMES:
-            let orderedList = state.Videogames.sort((a,b) => {
-                if (action.payload === "A-Z") return a.name.localeCompare(b.name);
-                if (action.payload === "Z-A") return b.name.localeCompare(a.name);
-                if (action.payload === "Max Rating") return b.rating - a.rating;
-                if (action.payload === "Min Rating") return a.rating - b.rating; 
-            })
+            function orderedList(payload) {
+                if (payload === 'reset') return state.CP_Videogames
+                return state.Videogames.sort((a,b) => {
+                    if (payload === "A-Z") return a.name.localeCompare(b.name);
+                    if (payload === "Z-A") return b.name.localeCompare(a.name);
+                    if (payload === "Max Rating") return b.rating - a.rating;
+                    if (payload === "Min Rating") return a.rating - b.rating; 
+            })}
+            function setOrderOption(payload) {
+                if (payload === 'reset') {
+                    return 'default'
+                } else { return payload}
+            }
             return {
                 ...state,
-                Videogames: orderedList
+                Videogames: [...orderedList(action.payload)],
+                order: setOrderOption(action.payload),
+            }
+        case FILTER_GAMES:
+            console.log(action.payload)
+            function filterList (payload) {
+                let FilteredList = {}
+                if (payload === 'reset') FilteredList = state.CP_Videogames
+                if (payload === 'Origin DB') FilteredList = state.Videogames.filter((e) => isNaN(e.id) === true)
+                if (payload === 'Origin API') FilteredList = state.Videogames.filter((e) => !isNaN(e.id))
+                state.Genres.map((e) => {
+                    if (e.name === payload) FilteredList = state.Videogames.filter((x) => x.genres.find((s) => s.name === payload))
+                })
+                
+                return FilteredList
+            }
+            function setFilterOption(payload) {
+                if (payload === 'reset') {
+                    return 'default'
+                } else {return payload}
+            }
+            return {
+                ...state,
+                Videogames: [...filterList(action.payload)],
+                filter: setFilterOption(action.payload)
             }
     default:
         return state;

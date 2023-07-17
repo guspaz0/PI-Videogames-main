@@ -11,7 +11,7 @@ export const FILTER_GAMES = 'FILTER_GAMES';
 
 export function getAllvideogames(){
     return async function (dispatch) {
-        try{    
+        try{
             const { data } = await Axios.get(`http://${VITE_DB_HOST}:${VITE_DB_PORT}/videogames`);
             if (data) {
                 dispatch({
@@ -27,7 +27,6 @@ export function getAllvideogames(){
 export function VideogameDetail(id){
     return async function (dispatch) {
         try{    
-            console.log(id)
             const { data } = await Axios.get(`http://${VITE_DB_HOST}:${VITE_DB_PORT}/videogames/${id}`);
             if (data) {
                 dispatch({

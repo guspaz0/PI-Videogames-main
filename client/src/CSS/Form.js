@@ -6,7 +6,9 @@ export const FormStyle = styled.div`
     justify-content: center;
     align-items: center;
     padding: 5px;
-    font-size: 20px;
+    font-size: 15px;
+    box-shadow: 2px 2px 5px black;
+    text-shadow: 1px 1px 5px white;
     .platforms {
         display: flex;
         flex-direction: row;
@@ -71,5 +73,9 @@ export const FormStyle = styled.div`
     button:hover {
         color: black;
         background-color: white;
+    }
+    label {
+        font-weight: bold;
+        padding: 5px;
     }
 `

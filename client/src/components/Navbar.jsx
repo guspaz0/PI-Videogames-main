@@ -2,25 +2,30 @@ import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { 
-    findVideogames, 
+    findVideogames, orderVideogames
     } from '../redux/actions';
-import { NavbarStyle } from './CSS';
+import { NavbarStyle } from '../CSS';
 
 
 export default function Navbar() {
 
     const dispatch = useDispatch()
     const location = useLocation()
-    const Videogames = useSelector(state => state.Videogames)
+    const Order = useSelector(state => state.order)
 
     React.useEffect(() => {
 
-    },[dispatch, Videogames])
+    },[dispatch])
 
     function handleSearch(e) {
         e.preventDefault()
-        const search = document.querySelector('input[name=searchVideogame]').value
-        dispatch(findVideogames(search))
+        const input = document.querySelector('input[name=searchVideogame]')
+        dispatch(findVideogames(input.value))
+        .then(() => {
+            dispatch(orderVideogames(Order))
+        })
+        input.value = null
+        
     }
 
 

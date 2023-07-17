@@ -3,7 +3,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { VideogameDetail } from "../redux/actions";
-import { VideoGameCard } from "./CSS";
+import { VideoGameCard } from "../CSS";
 
 
 export default function Card(e){
@@ -13,12 +13,14 @@ export default function Card(e){
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-    React.useEffect(() =>{
+    // React.useEffect(() =>{
         
-    },[navigate])
+    // },[navigate])
 
     const handleClick = async () => {
-        navigate(`/detail/${id}`,{replace: true})
+        dispatch(VideogameDetail(id)).then(() => {
+            navigate(`/detail/${id}`,{replace: true})
+        })
     }
 
     return(
