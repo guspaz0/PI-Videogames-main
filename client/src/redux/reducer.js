@@ -7,6 +7,7 @@ import {
     POST_VIDEOGAME,
     ORDER_GAMES,
     FILTER_GAMES,
+    ERRORS,
 } from './actions'
 
 const initialState = {
@@ -18,15 +19,21 @@ const initialState = {
     Platforms: [],
     Search: [],
     Videogame_DETAIL: {},
+    Errors: [],
 };
-
+function handleErrorState(payload) {
+    console.log(payload)
+    //if (payload.hasOwnProperty('response')) return {payload}
+    return []
+}
 export default function reducer(state = initialState, action) {
     switch (action.type) {
         case ALLVIDEOGAMES:
             return {
                 ...state,
                 Videogames: [...action.payload],
-                CP_Videogames: [...action.payload]
+                CP_Videogames: [...action.payload],
+                Errors: handleErrorState(action.payload)
             }
         case GET_GENRES:
             return {
@@ -43,6 +50,7 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 Search: action.payload,
                 Videogames: action.payload,
+                Errors: handleErrorState(action.payload)
             }
         case VIDEOGAME_DETAIL:
             return {
@@ -53,7 +61,8 @@ export default function reducer(state = initialState, action) {
             return {
                 ...state,
                 Videogames: [...state.Videogames, action.payload],
-                CP_Videogames: [...state.Videogames, action.payload]
+                CP_Videogames: [...state.Videogames, action.payload],
+                Errors: handleErrorState(action.payload)
             }
         case ORDER_GAMES:
             function orderedList(payload) {
@@ -78,9 +87,10 @@ export default function reducer(state = initialState, action) {
             console.log(action.payload)
             function filterList (payload) {
                 let FilteredList = {}
-                if (payload === 'reset') FilteredList = state.CP_Videogames
-                if (payload === 'Origin DB') FilteredList = state.Videogames.filter((e) => isNaN(e.id) === true)
-                if (payload === 'Origin API') FilteredList = state.Videogames.filter((e) => !isNaN(e.id))
+                if (payload === 'default') FilteredList = state.Videogames;
+                if (payload === 'reset') FilteredList = state.CP_Videogames;
+                if (payload === 'Origin DB') FilteredList = state.Videogames.filter((e) => isNaN(e.id) === true);
+                if (payload === 'Origin API') FilteredList = state.Videogames.filter((e) => !isNaN(e.id));
                 state.Genres.map((e) => {
                     if (e.name === payload) FilteredList = state.Videogames.filter((x) => x.genres.find((s) => s.name === payload))
                 })
@@ -95,7 +105,12 @@ export default function reducer(state = initialState, action) {
             return {
                 ...state,
                 Videogames: [...filterList(action.payload)],
-                filter: setFilterOption(action.payload)
+                filter: setFilterOption(action.payload),
+            }
+        case ERRORS:
+            return {
+                ...state,
+                Errors: action.payload
             }
     default:
         return state;

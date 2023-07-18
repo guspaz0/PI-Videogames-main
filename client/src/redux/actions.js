@@ -8,6 +8,7 @@ export const GET_PLATFORMS = 'GET_PLATFORMS';
 export const POST_VIDEOGAME = 'POST_VIDEOGAME';
 export const ORDER_GAMES = 'ORDER_GAMES';
 export const FILTER_GAMES = 'FILTER_GAMES';
+export const ERRORS = 'ERRORS'
 
 export function getAllvideogames(){
     return async function (dispatch) {
@@ -51,7 +52,11 @@ export function findVideogames(name){
                 })
             }
         } catch (error) {
-            console.log(error)
+            dispatch({
+                type: ERRORS,
+                payload: error.response
+            })
+            //console.log(error.response)
         }
     };
 };

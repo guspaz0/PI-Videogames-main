@@ -13,6 +13,7 @@ export const PaginationStyle = styled.div`
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    padding: 5px;
     button {
         color: white;
         background-color: black;
@@ -31,6 +32,7 @@ export const Order_FilterStyle = styled.div`
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    padding: 5px;
     button {
         color: white;
         background-color: black;
@@ -42,5 +44,16 @@ export const Order_FilterStyle = styled.div`
     button:hover {
         color: black;
         background-color: white;
+    }
+`
+
+export const LoadingGif = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    img {
+        width: 200px;
+        margin-top: 15%;
     }
 `

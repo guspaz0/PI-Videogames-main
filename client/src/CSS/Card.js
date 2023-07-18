@@ -12,7 +12,7 @@ export const VideoGameCard = styled.div`
         padding: 5px 5px 5px;
         margin: 5px;
         gap: 10px;
-
+        max-width: 260px;
         box-shadow: 2px 2px 5px black;
         text-shadow: 1px 1px 5px white;
     }

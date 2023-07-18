@@ -21,7 +21,7 @@ async function getAllvideogames(req,res) {
         if (name) {
             const result = AllGames.filter((e) => e.name.toLowerCase().includes(name.toLowerCase())).slice(0,15)
             if (result.length === 0) {
-                res.status(500).send({message: "no se encontraron resultados"})
+                res.status(404).send({message: `Not found results for "${name}"`})
             } else {
                 res.status(200).json(result)
             }

@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { 
-    findVideogames, orderVideogames
+    findVideogames, orderVideogames, filterVideogames
     } from '../redux/actions';
 import { NavbarStyle } from '../CSS';
 
@@ -13,9 +13,6 @@ export default function Navbar() {
     const location = useLocation()
     const Order = useSelector(state => state.order)
 
-    React.useEffect(() => {
-
-    },[dispatch])
 
     function handleSearch(e) {
         e.preventDefault()
@@ -23,11 +20,10 @@ export default function Navbar() {
         dispatch(findVideogames(input.value))
         .then(() => {
             dispatch(orderVideogames(Order))
+            dispatch(filterVideogames('default'))
         })
         input.value = null
-        
     }
-
 
     return (
         <NavbarStyle>
@@ -42,7 +38,7 @@ export default function Navbar() {
                 <button>Create Video Game</button>
                 </NavLink>
                 <span>
-                    <input type='search' name='searchVideogame'/><button onClick={handleSearch}>Search</button>
+                    <input type='search' placeholder='Search game by name' name='searchVideogame'/><button onClick={handleSearch}>Search</button>
                 </span>
                 <NavLink to='/about'>
                     <button>About</button>
@@ -54,7 +50,6 @@ export default function Navbar() {
                     <button>To Home</button>
                 </NavLink>
             }
-
         </NavbarStyle>
     )
 }

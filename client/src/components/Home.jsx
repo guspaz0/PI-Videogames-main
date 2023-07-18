@@ -3,7 +3,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import Card from './Card';
 import Pagination from './Pagination';
 import {getAllvideogames, orderVideogames, filterVideogames, getGenres} from '../redux/actions';
-import { HomeCards, Order_FilterStyle } from '../CSS';
+import { HomeCards, Order_FilterStyle, LoadingGif, ErrorStyle } from '../CSS';
 import Load from '../assets/Loading.gif'
 
 export default function Home() {
@@ -14,6 +14,7 @@ export default function Home() {
     const Order = useSelector(state => state.order)
     const Filter = useSelector(state => state.filter)
     const Genres = useSelector(state => state.Genres)
+    const Errors = useSelector(state => state.Errors)
     const [page, setPage] = React.useState(1);
     const [perPage, setPerPage] = React.useState(15)
     const maxPage = Math.ceil(Videogames.length / perPage)
@@ -24,13 +25,17 @@ export default function Home() {
     // }, [dispatch])
 
     React.useEffect(()=> {
-        dispatch(getAllvideogames())
-        dispatch(getGenres())
-    },[dispatch])
+        if (Genres.length === 0) {
+            dispatch(getGenres())
+        }
+    },[])
     
     React.useEffect(()=> {
         if (Videogames.length === 0) {
-            setLoading(true)
+            if (Filter === 'default') {
+                setLoading(true)
+                dispatch(getAllvideogames())
+            }
         } else {
             setLoading(false)
         }
@@ -38,13 +43,13 @@ export default function Home() {
 
     function handleOrder(e){
         e.preventDefault();
-        const select = document.querySelector('select[name=order]').value
-        dispatch(orderVideogames(select))
+        const inputOrder = document.querySelector('select[name=order]').value
+        dispatch(orderVideogames(inputOrder))
     }
     function handleFilter(e) {
         e.preventDefault();
-        const select = document.querySelector('select[name=filter]').value
-        dispatch(filterVideogames(select))
+        const inputFilter = document.querySelector('select[name=filter]').value
+        dispatch(filterVideogames(inputFilter))
     }
 
     return (
@@ -66,10 +71,12 @@ export default function Home() {
                     <option value='Origin DB'>Origin DB</option>
                     <option value='Origin API'>Origin API</option>
                     {Genres.map((e) => {return <option key={e.id} value={e.name}>{e.name}</option>})}
-                </select>{Filter}
+                </select>
             </Order_FilterStyle>
             <Pagination page={page} maxPage={maxPage} setPage={setPage}/>
-            {Loading && <img src={Load} alt='load'/>}
+            {Object.keys(Errors).length > 0 && <ErrorStyle>🎮{Errors.data.message}🦖</ErrorStyle>}
+            {Loading === false && Videogames.length === 0? <ErrorStyle><p>No Results 🦖</p>please reset filter and try again </ErrorStyle>: null}
+            {Loading && <LoadingGif><img src={Load} alt='load'/></LoadingGif>}
             <HomeCards>
                 {Videogames && Videogames.slice((page-1)*perPage,perPage+(page-1)*perPage).map((e) => {
                     return <Card key={e.id} props={e}/>
