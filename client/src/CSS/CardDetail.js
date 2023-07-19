@@ -6,9 +6,9 @@ export const CardDetailStyle = styled.div`
     text-align: center;
     align-items: center;
     justify-content: center;
-
     .Detail{
         background-color: rgba(47, 60, 255, 0.8);
+        background-color: rgba(119, 86, 122, 1);
         box-shadow: 2px 2px 5px black;
         text-shadow: 1px 1px 5px white;
         border-radius: 5px;
@@ -20,6 +20,7 @@ export const CardDetailStyle = styled.div`
     }
     img {
         height: 300px;
+        width: auto;
         border-radius: 5px;
     };
 

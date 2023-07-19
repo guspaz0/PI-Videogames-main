@@ -22,7 +22,7 @@ const initialState = {
     Errors: [],
 };
 function handleErrorState(payload) {
-    console.log(payload)
+    //console.log(payload)
     //if (payload.hasOwnProperty('response')) return {payload}
     return []
 }

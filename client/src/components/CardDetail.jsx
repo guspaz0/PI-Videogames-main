@@ -34,7 +34,7 @@ export default function CardDetail() {
             <span>
                 <p>Description:</p>
                 {description? 
-                <p dangerouslySetInnerHTML={description}></p>
+                <p dangerouslySetInnerHTML={{__html: description}}></p>
                 : <p>not found</p>}
             </span>
 

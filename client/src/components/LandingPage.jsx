@@ -15,8 +15,10 @@ export default function Landingpage(){
     }
     return (
         <LandingStyle>
+            <div className="Landing">
                 <h1>Henry Videogames</h1>
                 <button onClick={handleClick}>Ingresar al Home</button>
+            </div>
         </LandingStyle>
     )
 }

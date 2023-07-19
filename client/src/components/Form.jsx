@@ -99,19 +99,7 @@ export default function Form() {
 
     function handleSubmit(e) {
         e.preventDefault()
-        const genresData = Form.genres.map((e) => Genres.find((x) => x.name === e))
-        const platformData = Form.parent_platforms.map((e) => Platforms.find((x) => x.name === e))
-        
-        console.log(platformData)
-        console.log(genresData)
-        
-        const FormData = {
-            ...Form,
-            platforms: platformData,
-            genres: genresData
-        }
-
-
+        dispatch(postVideogame(Form))
     }
 
     return (
@@ -121,16 +109,16 @@ export default function Form() {
                 <input type='text' name='name' onChange={handleChange}/>
             <label>Image:</label>
                 <input type='url' name='background_image' onChange={handleChange}/>
-                {Form.background_image && <img src={Form.background_image} alt='img'/>}
+                {Form.background_image && <img src={Form.background_image} style={{width: '150px'}}alt='img'/>}
             <label>Description:</label>
-                <textarea name='description' onChange={handleChange}/>
+                <textarea name='description' style={{width: '400px', height: '100px'}}onChange={handleChange}/>
             <label>Platforms:</label>
                 <span className='platforms'>
                 {Platforms.length > 0 && Platforms.map((e) => {return <span className='parent_platform' key={e.id}>
                         <p >{e.name}
                             <input type='checkbox' name='parent_platform' value={e.name} checked={Form.parent_platforms.includes(e.name)} onChange={handlePlatformChange}/>
                         </p>
-                            {Form.parent_platforms.includes(e.name) && e.platforms.map((x) => {return <p >{x.name}<input type='checkbox' value={x.name} name='platform' checked={Form.platforms.includes(x.name)} onChange={handlePlatformChange}/></p>})}
+                            {Form.parent_platforms.includes(e.name) && e.platforms.map((x) => {return <p className='platform'>{x.name}<input type='checkbox' value={x.name} name='platform' checked={Form.platforms.includes(x.name)} onChange={handlePlatformChange}/></p>})}
                     </span>})}
                 </span>
             <label>Released:</label>

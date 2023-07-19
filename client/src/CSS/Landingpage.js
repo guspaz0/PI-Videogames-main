@@ -4,12 +4,13 @@ import styled from 'styled-components';
 export const LandingStyle = styled.div`
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     border-radius: 5px;
+    text-align: center;
     //background-color: gray;
     padding: 5px;
+    
     button {
         color: white;
         background-color: black;
@@ -21,6 +22,14 @@ export const LandingStyle = styled.div`
     button:hover {
         color: black;
         background-color: white;
+    }
+    .Landing {
+        //position: relative;
+        width: 70%;
+        min-height: 500px;
+        background-image: url('https://cdn.borntoengineer.com/2017/10/video-games.jpeg');
+        background-size: 100%;
+        background-repeat: no-repeat;
     }
 
 `

@@ -15,7 +15,7 @@ export const FormStyle = styled.div`
         justify-content: center;
         align-items: center;
         flex-wrap: wrap;
-        background-color: rgba(47, 60, 255, 0.8);
+        background-color: rgba(119, 86, 122, 1);
         border-radius: 5px;
         .parent_platform {
             display: flex;
@@ -23,11 +23,24 @@ export const FormStyle = styled.div`
             justify-content: center;
             flex-wrap: wrap;
             align-items: center;
-            background-color: blueviolet;
+            background-color: #c47ac0ff;
             border-radius: 5px;
             padding: 5px;
             margin: 5px;
         }
+        .platform {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            flex-wrap: wrap;
+            align-items: center;
+            background-color: #c47ac0ff;
+            border-radius: 5px;
+            padding: 5px;
+            margin: 5px;
+            background-color: #debac0ff;
+        }
+
     }
     .genres {
         display: flex;
@@ -35,7 +48,7 @@ export const FormStyle = styled.div`
         justify-content: center;
         align-items: center;
         flex-wrap: wrap;
-        background-color: rgba(47, 60, 255, 0.8);
+        background-color: rgba(119, 86, 122, 1);
         border-radius: 5px;
         .genre {
             display: flex;
@@ -43,7 +56,7 @@ export const FormStyle = styled.div`
             justify-content: center;
             flex-wrap: wrap;
             align-items: center;
-            background-color: blueviolet;
+            background-color: #c47ac0ff;
             border-radius: 5px;
             padding: 5px;
             margin: 5px;
@@ -57,7 +70,7 @@ export const FormStyle = styled.div`
         border-width: 2px;
     }
     .rating {
-        background-color: rgba(47, 60, 255, 0.8);
+        background-color: #4895ef;
         border-radius: 5px;
         padding: 5px;
     }

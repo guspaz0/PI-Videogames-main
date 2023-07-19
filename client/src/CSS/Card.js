@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+
 export const VideoGameCard = styled.div`
     position: relative;
     .Card {
@@ -8,7 +9,8 @@ export const VideoGameCard = styled.div`
         justify-content: center;
         align-items: center;
         border-radius: 5px;
-        background-color: rgba(47, 60, 255, 0.8);
+        background: linear-gradient(0deg, #2f323aff, #77567aff, #c47ac0ff, #e39ec1ff, #debac0ff);
+        //background-color: rgba(47, 60, 255, 0.8);
         padding: 5px 5px 5px;
         margin: 5px;
         gap: 10px;
@@ -17,7 +19,8 @@ export const VideoGameCard = styled.div`
         text-shadow: 1px 1px 5px white;
     }
     .Card:hover {
-        background-color: rgba(47, 0, 255, 0.9);
+        background-color: radial-gradient(#2f323aff, #77567aff, #c47ac0ff, #e39ec1ff, #debac0ff);
+        //background-color: rgba(47, 0, 255, 0.9);
     }
 
     .genres {

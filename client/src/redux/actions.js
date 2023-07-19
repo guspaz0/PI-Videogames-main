@@ -52,11 +52,7 @@ export function findVideogames(name){
                 })
             }
         } catch (error) {
-            dispatch({
-                type: ERRORS,
-                payload: error.response
-            })
-            //console.log(error.response)
+            return error.response
         }
     };
 };

@@ -14,7 +14,6 @@ export default function Home() {
     const Order = useSelector(state => state.order)
     const Filter = useSelector(state => state.filter)
     const Genres = useSelector(state => state.Genres)
-    const Errors = useSelector(state => state.Errors)
     const [page, setPage] = React.useState(1);
     const [perPage, setPerPage] = React.useState(15)
     const maxPage = Math.ceil(Videogames.length / perPage)
@@ -74,7 +73,6 @@ export default function Home() {
                 </select>
             </Order_FilterStyle>
             <Pagination page={page} maxPage={maxPage} setPage={setPage}/>
-            {Object.keys(Errors).length > 0 && <ErrorStyle>🎮{Errors.data.message}🦖</ErrorStyle>}
             {Loading === false && Videogames.length === 0? <ErrorStyle><p>No Results 🦖</p>please reset filter and try again </ErrorStyle>: null}
             {Loading && <LoadingGif><img src={Load} alt='load'/></LoadingGif>}
             <HomeCards>

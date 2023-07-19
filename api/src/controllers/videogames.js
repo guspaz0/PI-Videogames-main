@@ -36,10 +36,28 @@ async function getAllvideogames(req,res) {
 async function getVideogameByID(req,res) {
     try{
         const {id} = req.params
-        const games = await getVideogamesJson()
-        const gameID = games.filter((e) => e.id === Number(id))[0]
-
-        res.status(200).json(gameID)
+        if (isNaN(id)) {
+            const GameID = await Videogame.findByPk(id, {
+                include: [{
+                    model: Genres,
+                    attributes: ['id', 'name'],
+                    through: {attributes: []}
+                }]
+            })
+            if (GameID) {
+                res.status(200).json(GameID)
+            } else {
+                res.status(404).json({message: `not found results for "${id}"`})
+            }
+        } else {
+            const gamesAPI = await getVideogamesJson()
+            const gameID = gamesAPI.filter((e) => e.id === Number(id))[0]
+            if (gameID) {
+                res.status(200).json(gameID)
+            } else {
+                res.status(404).json({message: `not found results for "${id}"`})
+            }
+        }
     } catch (error) {
         res.status(404).json({error: error.message})
     }
@@ -59,7 +77,8 @@ async function createVideogame (req,res) {
             ) {
                 res.status(400).json({error: 'Missing some data'})
         } else {
-            const [Game, Created] = await Videogame.findOrCreate({where: {name, platforms, description, background_image, released, rating}})
+            const platforms_format = platforms.map((x) => {return {platform: x}})
+            const [Game, Created] = await Videogame.findOrCreate({where: {name, platforms: platforms_format, description, background_image, released, rating}})
             if (Created) {
                 genres.map((e) => {
                     Game.addGenres(e.id)

@@ -6,6 +6,7 @@ import { VideogameDetail } from "../redux/actions";
 import { VideoGameCard } from "../CSS";
 
 
+
 export default function Card(e){
 
     const {id, name, platforms, background_image, released, rating, genres} = e.props
