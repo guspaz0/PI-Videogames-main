@@ -92,6 +92,7 @@ export function postVideogame(form){
     return async function (dispatch) {
         try{    
             const { data } = await Axios.post(`http://${VITE_DB_HOST}:${VITE_DB_PORT}/videogames`, form);
+            console.log(data, 'actions try')
             if (data) {
                 dispatch({
                     type: GET_PLATFORMS,
@@ -99,7 +100,8 @@ export function postVideogame(form){
                 })
             }
         } catch (error) {
-            console.log(error)
+            console.log(error.response.status, 'actions catch')
+            return error.response.status
         }
     };
 };

@@ -1,14 +1,18 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getGenres, getPlatforms, postVideogame } from '../redux/actions';
-import { FormStyle } from '../CSS';
+import { FormStyle, ValidationStyle } from '../CSS';
+import { validation, isEmpty, Stars } from '../utils';
+
 
 export default function Form() {
 
     const dispatch = useDispatch()
     const Genres = useSelector(state => state.Genres)
     const Platforms = useSelector(state => state.Platforms)
-    const [Search, setSearch] = React.useState()
+
+    const Parent_platforms = Platforms.map((e) => {return {id: e.id, name: e.name, platforms: []}})
+    //const [Search, setSearch] = React.useState()
 
     React.useEffect(() => {
         dispatch(getGenres())
@@ -17,18 +21,31 @@ export default function Form() {
 
     const [Form, setForm] = React.useState({
             name: null,
-            background_image: null,
-            description: null,
-            parent_platforms: [],
+            background_image: "",
+            description: "",
             platforms: [],
             released: null,
             rating: null,
             genres: [],
         }
     )
+    const [checkboxes, setCheckboxes] = React.useState({
+        parent_platforms: [],
+        platforms: []
+    })
+    const [errors, setErrors] = React.useState({
+        name: null,
+        background_image: null,
+        description: null,
+        platforms: null,
+        released: null,
+        rating: null,
+        genres: null,
+    })
 
-    React.useEffect(() => {
-    },[Form])
+    // React.useEffect(() => {
+    //     setErrors(validation(Form))
+    // },[Form])
 
     function handleChange(e) {
         e.preventDefault()
@@ -47,31 +64,74 @@ export default function Form() {
         const {value, name, checked} = e.target;
         if (name === 'parent_platform') {
             if (checked) {
-                const filter = Platforms.filter((e) => e.name === value)[0].name
+                const filter = Platforms.filter((e) => e.name === value)[0]
+                setCheckboxes({
+                    ...checkboxes,
+                    parent_platforms: [...checkboxes.parent_platforms, filter.name]
+                })
                 setForm({
                     ...Form,
-                    parent_platforms: [...Form.parent_platforms, filter]
+                    platforms: [...Form.platforms, Parent_platforms.filter((x) => x.id === filter.id)[0]]
                 })
             } else {
-                const filter = Form.parent_platforms.filter((e) => e !== value)
+                const filterChecked = checkboxes.parent_platforms.filter((e) => e !== value)
+                const filter = Form.platforms.filter((e) => e.name !== value)
+                setCheckboxes({
+                    ...checkboxes,
+                    parent_platforms: [...filterChecked]
+                })
                 setForm({
                     ...Form,
-                    parent_platforms: [...filter]
+                    platforms: [...filter]
                 })
             }
         }
         if (name === 'platform') {
+            const filter = Platforms.map((e) => {return {
+                id: e.id,
+                name: e.name,
+                platforms: e.platforms.filter((x) => x.name === value)
+            }})
+            .filter((x) => x.platforms.length === 1)[0];
+            const filterState = Form.platforms.filter((x) => x.id !== filter.id)
+            const platformToChange = Form.platforms.filter((x) => x.id === filter.id)[0]
             if (checked) {
-                const filter = Platforms.map((e) => e.platforms.filter((x) => x.name === value))[0].name
+                setCheckboxes({
+                    ...checkboxes,
+                    platforms: [...checkboxes.platforms, value]
+                })
                 setForm({
                     ...Form,
-                    platforms: [...Form.parent_platforms, filter]
+                    platforms: [
+                        ...filterState,
+                        {
+                            ...platformToChange,
+                            platforms: [
+                                ...platformToChange.platforms,
+                                ...filter.platforms
+                            ]
+                        }
+                    ]
                 })
             } else {
                 const filter = Form.platforms.filter((e) => e !== value)
+                const filterCheckbox = checkboxes.platforms.filter((e) => e !== value)
+                const filter2 = platformToChange.platforms.filter((e) => e.name !== value)
+                setCheckboxes({
+                    ...checkboxes,
+                    platforms: [...filterCheckbox]
+                })
                 setForm({
                     ...Form,
-                    platforms: [...filter]
+                    platforms: [
+                        ...filterState,
+                        {
+                            ...platformToChange,
+                            platforms: [
+                                ...filter2
+                            ]
+                        }
+                    ]
                 })
             }
         }
@@ -95,11 +155,22 @@ export default function Form() {
         }
     }
 
-    const Stars = ['⭐','⭐⭐','⭐⭐⭐','⭐⭐⭐⭐','⭐⭐⭐⭐⭐']
-
     function handleSubmit(e) {
         e.preventDefault()
-        dispatch(postVideogame(Form))
+        if (isEmpty(errors)) {
+            dispatch(postVideogame(Form))
+            .then((data) => {
+                console.log(data)
+                if (data === 201 || data === 200) {
+                    alert('La Receta ha sido creada exitosamente en la base de datos!');
+                    // setForm({
+                    // })
+                } else { throw Error(data)}
+            }).catch((error)=> {
+                alert(`Unhandled event status ${error}`)
+            })
+        }
+        
     }
 
     return (
@@ -107,30 +178,37 @@ export default function Form() {
             <h1>Create Video Game</h1>
             <label>Name:</label>
                 <input type='text' name='name' onChange={handleChange}/>
+                {errors.name && <ValidationStyle>{errors.name}</ValidationStyle>}
             <label>Image:</label>
                 <input type='url' name='background_image' onChange={handleChange}/>
+                {errors.background_image && <ValidationStyle>{errors.background_image}</ValidationStyle>}
                 {Form.background_image && <img src={Form.background_image} style={{width: '150px'}}alt='img'/>}
             <label>Description:</label>
                 <textarea name='description' style={{width: '400px', height: '100px'}}onChange={handleChange}/>
+                {errors.description && <ValidationStyle>{errors.description}</ValidationStyle>}
             <label>Platforms:</label>
                 <span className='platforms'>
                 {Platforms.length > 0 && Platforms.map((e) => {return <span className='parent_platform' key={e.id}>
                         <p >{e.name}
-                            <input type='checkbox' name='parent_platform' value={e.name} checked={Form.parent_platforms.includes(e.name)} onChange={handlePlatformChange}/>
+                            <input type='checkbox' name='parent_platform' value={e.name} checked={checkboxes.parent_platforms.includes(e.name)} onChange={handlePlatformChange}/>
                         </p>
-                            {Form.parent_platforms.includes(e.name) && e.platforms.map((x) => {return <p className='platform'>{x.name}<input type='checkbox' value={x.name} name='platform' checked={Form.platforms.includes(x.name)} onChange={handlePlatformChange}/></p>})}
+                            {checkboxes.parent_platforms.includes(e.name) && e.platforms.map((x) => {return <p className='platform'>{x.name}<input type='checkbox' value={x.name} name='platform' checked={checkboxes.platforms.includes(x.name)} onChange={handlePlatformChange}/></p>})}
                     </span>})}
+                    {errors.parent_platforms && <ValidationStyle>{errors.parent_platforms}</ValidationStyle>}
                 </span>
             <label>Released:</label>
                 <input type='date' name='released' onChange={handleChange}/>
+                {errors.released && <ValidationStyle>{errors.released}</ValidationStyle>}
             <label>Rating:</label> 
                 <span className='rating'><input defaultValue='0' type='range' max={5} name='rating' onChange={handleChange}/> {Stars[Form.rating-1]}</span>
+                {errors.rating && <ValidationStyle>{errors.rating}</ValidationStyle>}
             <label>Genres:</label>
                 <span className='genres'>
                     {Genres.length > 0 && Genres.map((e) => {return <span className='genre' key={e.id}>
                     <p >{e.name}<input type='checkbox' value={e.name} checked={Form.genres.includes(e.name)} onChange={handleGenresChange}/></p>
                     </span>})}
                 </span>
+                {errors.genres && <ValidationStyle>{errors.genres}</ValidationStyle>}
             <button onClick={handleSubmit}>Submit</button>
         </FormStyle>
     )

@@ -1,5 +1,6 @@
-const {getVideogamesJson} = require('../utils')
+const {getVideogamesJson, getPlatforms} = require('../utils')
 const { Videogame, Genres } = require('../db')
+
 //const { Op } = require('sequelize')
 //const { GameID, allGameService, searchGameName } = require('../services')
 
@@ -65,7 +66,7 @@ async function getVideogameByID(req,res) {
 
 async function createVideogame (req,res) {
     try{
-        const {name,platforms, description, background_image, released, rating, genres} = req.body;
+        const {name, parent_platforms, platforms, description, background_image, released, rating, genres} = req.body;
         if (
             !name ||
             !platforms ||
@@ -78,6 +79,7 @@ async function createVideogame (req,res) {
                 res.status(400).json({error: 'Missing some data'})
         } else {
             const platforms_format = platforms.map((x) => {return {platform: x}})
+            console.log(parent_platforms)
             const [Game, Created] = await Videogame.findOrCreate({where: {name, platforms: platforms_format, description, background_image, released, rating}})
             if (Created) {
                 genres.map((e) => {

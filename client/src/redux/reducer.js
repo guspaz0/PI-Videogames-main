@@ -19,13 +19,8 @@ const initialState = {
     Platforms: [],
     Search: [],
     Videogame_DETAIL: {},
-    Errors: [],
 };
-function handleErrorState(payload) {
-    //console.log(payload)
-    //if (payload.hasOwnProperty('response')) return {payload}
-    return []
-}
+
 export default function reducer(state = initialState, action) {
     switch (action.type) {
         case ALLVIDEOGAMES:
@@ -33,7 +28,7 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 Videogames: [...action.payload],
                 CP_Videogames: [...action.payload],
-                Errors: handleErrorState(action.payload)
+
             }
         case GET_GENRES:
             return {
@@ -50,7 +45,6 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 Search: action.payload,
                 Videogames: action.payload,
-                Errors: handleErrorState(action.payload)
             }
         case VIDEOGAME_DETAIL:
             return {
@@ -62,7 +56,6 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 Videogames: [...state.Videogames, action.payload],
                 CP_Videogames: [...state.Videogames, action.payload],
-                Errors: handleErrorState(action.payload)
             }
         case ORDER_GAMES:
             function orderedList(payload) {

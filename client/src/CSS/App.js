@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const AppStyle = styled.div`
-    background-color: #4895ef;
+    background: linear-gradient(0deg, #2f323aff, #4895ef);
     
     background-size: cover;
     width: cover;

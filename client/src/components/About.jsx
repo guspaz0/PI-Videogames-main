@@ -1,5 +1,5 @@
 import { AboutStyle } from "../CSS"
-//import IMAGES from '../assets/aptitudes';
+import {IMAGES} from '../assets/aptitudes';
 
 
 export default function About(){

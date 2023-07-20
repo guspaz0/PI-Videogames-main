@@ -6,7 +6,7 @@ import { VideoGameCard } from "./Card";
 import { LandingStyle } from "./Landingpage";
 import { AppStyle } from "./App";
 import { FormStyle } from "./Form";
-import { ErrorStyle } from "./Error";
+import { ErrorStyle, ValidationStyle } from "./Error";
 
 export {
     HomeCards, PaginationStyle, Order_FilterStyle,
@@ -18,5 +18,5 @@ export {
     AppStyle,
     FormStyle,
     LoadingGif,
-    ErrorStyle
+    ErrorStyle, ValidationStyle
 }

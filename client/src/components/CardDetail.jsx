@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import { VideogameDetail } from '../redux/actions';
 import { CardDetailStyle } from '../CSS';
+import { Stars } from '../utils';
 
 export default function CardDetail() {
 
@@ -22,7 +23,6 @@ export default function CardDetail() {
     },[dispatch, Detail])
 
     const { name, platforms, description, background_image, released, rating, genres} = Detail
-    const Stars = ['⭐','⭐⭐','⭐⭐⭐','⭐⭐⭐⭐','⭐⭐⭐⭐⭐']
 
     return (
     <CardDetailStyle>
@@ -40,8 +40,8 @@ export default function CardDetail() {
 
             <ul type='circle' className="platforms">
                 <lh>Platforms:</lh>
-                {platforms.map((x) => {
-                return <li key={x.platform.id}>{x.platform.name}</li>})}
+                {platforms.map((x, index) => {
+                return <li key={index}>{x.platform.name}</li>})}
             </ul>
             <span><p>Released:</p> {released}</span>
             <p>Rating: {rating} {Stars[Math.ceil(parseInt(rating))]}</p>
