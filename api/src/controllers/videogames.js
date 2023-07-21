@@ -84,20 +84,19 @@ async function createVideogame (req,res) {
                 const AddGenres = genres.map(async (e) => {
                         await Game.addGenres(e.id)
                     })
-                if (AddGenres) {
-                    const GameID = await Videogame.findByPk(Game.id, {
-                            include: [{
-                                model: Genres,
-                                attributes: ['id', 'name'],
-                                through: {attributes: []}
-                            }]
-                        })
-                        res.status(201).json(GameID)
-                    }
+                const Game_Genres = await Videogame.findByPk(Game.id, {
+                    include: [{
+                        model: Genres,
+                        attributes: ['id', 'name'],
+                        through: {attributes: []}
+                    }],
+                })
+                if (Game_Genres) {
+                    res.status(201).json(Game_Genres)
                 }
-            // } else {
-            //     res.status(402).json({error: 'Game already created in DB'})
-            // }
+            } else {
+                res.status(402).json({error: 'Game already created in DB'})
+            }
         }
     } catch (error) {
         res.status(404).json({error: error.message})
