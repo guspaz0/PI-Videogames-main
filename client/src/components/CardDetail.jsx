@@ -17,10 +17,10 @@ export default function CardDetail() {
         if (!Detail) {
             dispatch(VideogameDetail(parseInt(id)))
         }
-        if (Detail.id !== parseInt(id)) {
-            dispatch(VideogameDetail(parseInt(id)))
-        }
-    },[dispatch, Detail])
+        // if (Detail.id !== parseInt(id)) {
+        //     dispatch(VideogameDetail(parseInt(id)))
+        // }
+    },[dispatch])
 
     const { name, platforms, description, background_image, released, rating, genres} = Detail
 

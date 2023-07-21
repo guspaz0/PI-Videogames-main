@@ -79,24 +79,25 @@ async function createVideogame (req,res) {
                 res.status(400).json({error: 'Missing some data'})
         } else {
             const platforms_format = platforms.map((x) => {return {platform: x}})
-            console.log(parent_platforms)
             const [Game, Created] = await Videogame.findOrCreate({where: {name, platforms: platforms_format, description, background_image, released, rating}})
             if (Created) {
-                genres.map((e) => {
-                    Game.addGenres(e.id)
-                })
-                const Newgame = await Videogame.findAll({
-                    where: {id: Game.id},
-                    include: {
-                        model: Genres,
-                        attributes: ['id','name'],
-                        through: {attributes: []},
+                const AddGenres = genres.map(async (e) => {
+                        await Game.addGenres(e.id)
+                    })
+                if (AddGenres) {
+                    const GameID = await Videogame.findByPk(Game.id, {
+                            include: [{
+                                model: Genres,
+                                attributes: ['id', 'name'],
+                                through: {attributes: []}
+                            }]
+                        })
+                        res.status(201).json(GameID)
                     }
-                })
-                    res.status(201).json(Newgame)
-            } else {
-                res.status(402).json({error: 'Game already created in DB'})
-            }
+                }
+            // } else {
+            //     res.status(402).json({error: 'Game already created in DB'})
+            // }
         }
     } catch (error) {
         res.status(404).json({error: error.message})

@@ -31,7 +31,7 @@ export default function Card(e){
                 <img src={background_image} alt='img'/>
                 <span>
                 <h4>Genres:</h4>
-                <span className="genres">{genres.map((x) => {
+                <span className="genres">{genres?.map((x) => {
                     return <p key={x.id}>{x.name}</p>})}
                 </span>
                 </span>

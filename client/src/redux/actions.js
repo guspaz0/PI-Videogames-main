@@ -95,7 +95,7 @@ export function postVideogame(form){
             console.log(data, 'actions try')
             if (data) {
                 dispatch({
-                    type: GET_PLATFORMS,
+                    type: POST_VIDEOGAME,
                     payload: data
                 })
             }

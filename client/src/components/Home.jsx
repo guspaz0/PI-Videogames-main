@@ -27,7 +27,7 @@ export default function Home() {
         if (Genres.length === 0) {
             dispatch(getGenres())
         }
-    },[])
+    },[dispatch])
     
     React.useEffect(()=> {
         if (Videogames.length === 0) {

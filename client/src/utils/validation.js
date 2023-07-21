@@ -6,7 +6,7 @@ export function validation(obj) {
     if(!regexOnlyLetters.test(obj.name)){errors.name="Only letters"};
     if(!obj.name){errors.name="Obligatory Field"};
 
-    if(obj.parent_platforms.length === 0){errors.parent_platforms="Select at least one parent platform"};
+    if(obj.platforms.length === 0){errors.platforms="Select at least one parent platform"};
     if(obj.rating > 5 || obj.rating < 0 ){errors.rating="Only numbers from 0 to 5"};
     if(!obj.released){errors.released='Obligatory field'}
 

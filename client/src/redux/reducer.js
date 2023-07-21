@@ -54,8 +54,8 @@ export default function reducer(state = initialState, action) {
         case POST_VIDEOGAME:
             return {
                 ...state,
-                Videogames: [...state.Videogames, action.payload],
-                CP_Videogames: [...state.Videogames, action.payload],
+                Videogames: [...state.Videogames, ...action.payload],
+                CP_Videogames: [...state.Videogames, ...action.payload],
             }
         case ORDER_GAMES:
             function orderedList(payload) {

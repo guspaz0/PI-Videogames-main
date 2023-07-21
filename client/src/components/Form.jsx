@@ -12,12 +12,17 @@ export default function Form() {
     const Platforms = useSelector(state => state.Platforms)
 
     const Parent_platforms = Platforms.map((e) => {return {id: e.id, name: e.name, platforms: []}})
+
     //const [Search, setSearch] = React.useState()
 
-    React.useEffect(() => {
-        dispatch(getGenres())
-        dispatch(getPlatforms())
-    }, [dispatch])
+    // React.useEffect(() => {
+    //     if(Genres.length === 0) {
+    //         dispatch(getGenres())
+    //     }
+    //     if (Platforms.length === 0) {
+    //         dispatch(getPlatforms())
+    //     }
+    // }, [dispatch])
 
     const [Form, setForm] = React.useState({
             name: null,
@@ -31,7 +36,8 @@ export default function Form() {
     )
     const [checkboxes, setCheckboxes] = React.useState({
         parent_platforms: [],
-        platforms: []
+        platforms: [],
+        genres: []
     })
     const [errors, setErrors] = React.useState({
         name: null,
@@ -43,9 +49,9 @@ export default function Form() {
         genres: null,
     })
 
-    // React.useEffect(() => {
-    //     setErrors(validation(Form))
-    // },[Form])
+    React.useEffect(() => {
+        setErrors(validation(Form))
+    },[Form])
 
     function handleChange(e) {
         e.preventDefault()
@@ -141,13 +147,26 @@ export default function Form() {
     function handleGenresChange (e) {
         const {value, checked} = e.target;
         if (checked) {
-            const filter = Genres.filter((e) => e.name === value)[0].name
+            const filter = Genres.filter((e) => e.name === value)[0]
+            setCheckboxes({
+                ...checkboxes,
+                genres: [
+                    ...checkboxes.genres,
+                    filter.name
+                ]
+            })
             setForm({
                 ...Form,
                 genres: [...Form.genres, filter]
             })
         } else {
-            const filter = Form.genres.filter((e) => e !== value)
+            const filter = Form.genres.filter((e) => e.name !== value)
+            setCheckboxes({
+                ...checkboxes,
+                genres: [
+                    ...checkboxes.genres.filter((e) => e !== value)
+                ]
+            })
             setForm({
                 ...Form,
                 genres: [...filter]
@@ -165,7 +184,7 @@ export default function Form() {
                     alert('La Receta ha sido creada exitosamente en la base de datos!');
                     // setForm({
                     // })
-                } else { throw Error(data)}
+                }
             }).catch((error)=> {
                 alert(`Unhandled event status ${error}`)
             })
@@ -205,7 +224,7 @@ export default function Form() {
             <label>Genres:</label>
                 <span className='genres'>
                     {Genres.length > 0 && Genres.map((e) => {return <span className='genre' key={e.id}>
-                    <p >{e.name}<input type='checkbox' value={e.name} checked={Form.genres.includes(e.name)} onChange={handleGenresChange}/></p>
+                    <p >{e.name}<input type='checkbox' value={e.name} checked={checkboxes.genres.includes(e.name)} onChange={handleGenresChange}/></p>
                     </span>})}
                 </span>
                 {errors.genres && <ValidationStyle>{errors.genres}</ValidationStyle>}
