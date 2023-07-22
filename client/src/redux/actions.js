@@ -92,21 +92,26 @@ export function postVideogame(form){
     return async function (dispatch) {
         try{    
             const { data } = await Axios.post(`http://${VITE_DB_HOST}:${VITE_DB_PORT}/videogames`, form);
-            console.log(data, 'actions try')
+            //console.log(data, 'actions try before detail')
             if (data) {
-                dispatch({
-                    type: POST_VIDEOGAME,
-                    payload: data
-                })
+                const detail = await Axios.get(`http://${VITE_DB_HOST}:${VITE_DB_PORT}/videogames/${data.id}`);
+                //if (detail.response) console.log(detail.response, 'actions try after detail');
+                if (detail.data) {
+                    dispatch({
+                        type: POST_VIDEOGAME,
+                        payload: detail.data
+                    })
+                    return detail.status
+                }
             }
         } catch (error) {
-            console.log(error.response.status, 'actions catch')
+            //console.log(error.response.status, 'actions catch')
             return error.response.status
         }
     };
 };
 export function orderVideogames(direction) {
-    return function (dispatch){
+    return async function (dispatch){
         dispatch({
             type: ORDER_GAMES,
             payload: direction
@@ -114,7 +119,7 @@ export function orderVideogames(direction) {
     }
 }
 export function filterVideogames(condition) {
-    return function (dispatch){
+    return async function (dispatch){
         dispatch({
             type: FILTER_GAMES,
             payload: condition

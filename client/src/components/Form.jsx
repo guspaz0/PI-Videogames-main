@@ -179,11 +179,26 @@ export default function Form() {
         if (isEmpty(errors)) {
             dispatch(postVideogame(Form))
             .then((data) => {
-                console.log(data)
+                //console.log(data, 'log Form after then')
                 if (data === 201 || data === 200) {
-                    alert('La Receta ha sido creada exitosamente en la base de datos!');
-                    // setForm({
-                    // })
+                    alert('the Game has created in DB succesfull!');
+                    setForm({
+                            name: null,
+                            background_image: "",
+                            description: "",
+                            platforms: [],
+                            released: null,
+                            rating: null,
+                            genres: [],
+                    })
+                    setCheckboxes({
+                            parent_platforms: [],
+                            platforms: [],
+                            genres: []
+                    })
+                }
+                if (data === 406) {
+                    alert('Error: Game name already exists in DB')
                 }
             }).catch((error)=> {
                 alert(`Unhandled event status ${error}`)
@@ -196,14 +211,14 @@ export default function Form() {
         <FormStyle>
             <h1>Create Video Game</h1>
             <label>Name:</label>
-                <input type='text' name='name' onChange={handleChange}/>
+                <input type='text' name='name' value={Form.name} onChange={handleChange}/>
                 {errors.name && <ValidationStyle>{errors.name}</ValidationStyle>}
             <label>Image:</label>
-                <input type='url' name='background_image' onChange={handleChange}/>
+                <input type='url' name='background_image' value={Form.background_image} onChange={handleChange}/>
                 {errors.background_image && <ValidationStyle>{errors.background_image}</ValidationStyle>}
                 {Form.background_image && <img src={Form.background_image} style={{width: '150px'}}alt='img'/>}
             <label>Description:</label>
-                <textarea name='description' style={{width: '400px', height: '100px'}}onChange={handleChange}/>
+                <textarea name='description' style={{width: '400px', height: '100px'}} value={Form.description} onChange={handleChange}/>
                 {errors.description && <ValidationStyle>{errors.description}</ValidationStyle>}
             <label>Platforms:</label>
                 <span className='platforms'>

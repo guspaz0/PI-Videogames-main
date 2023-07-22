@@ -14,7 +14,7 @@ export function validation(obj) {
     if(!obj.background_image){errors.background_image="Obligatory Field"};
 
     if(!obj.description){errors.description="Obligatory Field"};
-    if(obj.description.length<30){errors.description="30 characters minimum"};
+    if(obj.description.length<30 || obj.description.length > 210){errors.description = `30 characters minimum and 140 maximum. current length: ${obj.description.length}`};
 
     if(obj.genres.length === 0) {errors.genres="Select at least one genre"};
 

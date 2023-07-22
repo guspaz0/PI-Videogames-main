@@ -66,7 +66,7 @@ async function getVideogameByID(req,res) {
 
 async function createVideogame (req,res) {
     try{
-        const {name, parent_platforms, platforms, description, background_image, released, rating, genres} = req.body;
+        const {name, platforms, description, background_image, released, rating, genres} = req.body;
         if (
             !name ||
             !platforms ||
@@ -79,27 +79,20 @@ async function createVideogame (req,res) {
                 res.status(400).json({error: 'Missing some data'})
         } else {
             const platforms_format = platforms.map((x) => {return {platform: x}})
-            const [Game, Created] = await Videogame.findOrCreate({where: {name, platforms: platforms_format, description, background_image, released, rating}})
+            const [Game, Created] = await Videogame.findOrCreate({
+                where: {name: name},
+                defaults: {platforms: platforms_format, description, background_image, released, rating}})
             if (Created) {
-                const AddGenres = genres.map(async (e) => {
-                        await Game.addGenres(e.id)
-                    })
-                const Game_Genres = await Videogame.findByPk(Game.id, {
-                    include: [{
-                        model: Genres,
-                        attributes: ['id', 'name'],
-                        through: {attributes: []}
-                    }],
+                genres.map(async (e) => {
+                    await Game.addGenres(e.id)
                 })
-                if (Game_Genres) {
-                    res.status(201).json(Game_Genres)
-                }
+                res.status(201).json(Game)
             } else {
-                res.status(402).json({error: 'Game already created in DB'})
+                res.status(406).json({error: 'Game already created in DB'})
             }
         }
     } catch (error) {
-        res.status(404).json({error: error.message})
+        res.status(500).json({error: error.message})
     }
 }
 

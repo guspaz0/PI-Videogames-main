@@ -49,6 +49,9 @@ export default function Home() {
         e.preventDefault();
         const inputFilter = document.querySelector('select[name=filter]').value
         dispatch(filterVideogames(inputFilter))
+        .then(() => {
+            dispatch(orderVideogames(Order))
+        })
     }
 
     return (
