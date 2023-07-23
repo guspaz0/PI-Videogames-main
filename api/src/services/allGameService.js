@@ -21,11 +21,7 @@ const allGameService = async (name) => {
         rating: Math.floor(rating),
         released,
         platforms: parent_platforms,
-          // .map((platform) => platform.platform.name)
-          // .join(", "),
         genres: genres
-        //.map((genre) => genre.name).join(", "),
-        //created: false
       })
     )
     return arrayOfSearchGames
@@ -56,11 +52,7 @@ const allGameService = async (name) => {
         rating: Math.floor(rating),
         released,
         platforms: parent_platforms,
-          // .map((platform) => platform.platform.name)
-          // .join(", "),
         genres: genres,
-          // .map((genre) => genre.name).join(", "),
-        // created: false
       })
     )
 

@@ -1,4 +1,4 @@
-const { getPlatforms } = require('../utils') // para Testing
+//const { getPlatforms } = require('../utils') // para Testing
 const { getParentPlatforms } = require('../services') // para produccion
 
 async function parent_platforms (req,res) {

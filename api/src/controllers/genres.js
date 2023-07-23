@@ -1,4 +1,4 @@
-const { getGenres } = require('../utils');
+//const { getGenres } = require('../utils');
 const { Genres } = require('../db');
 const { GenresAPI } = require('../services');
 
