@@ -14,4 +14,4 @@ async function GenresAPI() {
     }
 }
 
-module.exports = GenresAPI
+module.exports = {GenresAPI}

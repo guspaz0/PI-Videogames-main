@@ -11,9 +11,8 @@ export default function Landingpage(){
     function handleClick() { 
         dispatch(getGenres())
         dispatch(getPlatforms())
-        dispatch(getAllvideogames()).then(() => {
-            navigate('./home')
-        })
+        //dispatch(getAllvideogames())
+        navigate('./home')
     }
     return (
         <LandingStyle>

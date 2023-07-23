@@ -20,11 +20,12 @@ const allGameService = async (name) => {
         background_image,
         rating: Math.floor(rating),
         released,
-        parent_platforms: parent_platforms
-          .map((platform) => platform.platform.name)
-          .join(", "),
-        genres: genres.map((genre) => genre.name).join(", "),
-        created: false
+        platforms: parent_platforms,
+          // .map((platform) => platform.platform.name)
+          // .join(", "),
+        genres: genres
+        //.map((genre) => genre.name).join(", "),
+        //created: false
       })
     )
     return arrayOfSearchGames
@@ -54,11 +55,12 @@ const allGameService = async (name) => {
         background_image,
         rating: Math.floor(rating),
         released,
-        parent_platforms: parent_platforms
-          .map((platform) => platform.platform.name)
-          .join(", "),
-        genres: genres.map((genre) => genre.name).join(", "),
-        created: false
+        platforms: parent_platforms,
+          // .map((platform) => platform.platform.name)
+          // .join(", "),
+        genres: genres,
+          // .map((genre) => genre.name).join(", "),
+        // created: false
       })
     )
 
@@ -69,4 +71,4 @@ const allGameService = async (name) => {
     }
   }
 }
-module.exports = allGameService
+module.exports = {allGameService}

@@ -3,7 +3,8 @@ const { getParentPlatforms } = require('../services') // para produccion
 
 async function parent_platforms (req,res) {
     try{
-        const data = await getPlatforms()
+        //const data = await getPlatforms()
+        const data  = await getParentPlatforms()
         if (data) {
             res.status(200).json(data)
         }

@@ -1,5 +1,6 @@
-const {getVideogamesJson, getPlatforms} = require('../utils')
-const { Videogame, Genres } = require('../db')
+//const {getVideogamesJson, getPlatforms} = require('../utils');
+const { Videogame, Genres } = require('../db');
+const {allGameService, GameID} = require('../services');
 
 //const { Op } = require('sequelize')
 //const { GameID, allGameService, searchGameName } = require('../services')
@@ -8,7 +9,8 @@ async function getAllvideogames(req,res) {
     try{
         const {name} = req.query
         
-        const gamesAPI = await getVideogamesJson()
+        //const gamesAPI = await getVideogamesJson()
+        const gamesAPI = await allGameService()
         const gamesDB = await Videogame.findAll({
             include: [{
                 model: Genres,
@@ -51,10 +53,12 @@ async function getVideogameByID(req,res) {
                 res.status(404).json({message: `not found results for "${id}"`})
             }
         } else {
-            const gamesAPI = await getVideogamesJson()
-            const gameID = gamesAPI.filter((e) => e.id === Number(id))[0]
-            if (gameID) {
-                res.status(200).json(gameID)
+            //const gamesAPI = await getVideogamesJson()
+            //const gameID = gamesAPI.filter((e) => e.id === Number(id))[0]
+            const gamesAPI = await GameID(id)
+            
+            if (gamesAPI) {
+                res.status(200).json(gamesAPI)
             } else {
                 res.status(404).json({message: `not found results for "${id}"`})
             }

@@ -5,7 +5,7 @@ const path = require('path');
 const {
   DB_USER, DB_PASSWORD, DB_HOST,
 } = process.env;
-const {getGenres} = require('./utils')
+//const {getGenres} = require('./utils')
 const {GenresAPI} = require('./services')
 
 const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/videogames`, {
@@ -42,7 +42,7 @@ Genres.belongsToMany(Videogame,{through: 'videogame_genre'})
 
 async function initializeDB () {
   try {
-    await Genres.bulkCreate(await getGenres())
+    await Genres.bulkCreate(await GenresAPI())
 
   } catch (error) {
     console.log(error)

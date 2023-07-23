@@ -9,15 +9,15 @@ async function getParentPlatforms () {
             const parent_platforms = data.results.map((e) => {
                 return {
                     id: e.id,
-                    name: e.id,
-                    platforms: [
+                    name: e.name,
+                    platforms: 
                         e.platforms.map((x) => {
                             return {
                                 id: x.id,
                                 name: x.name
                             }
                         })
-                    ]
+                    
                 }
             })
             return parent_platforms
@@ -27,4 +27,4 @@ async function getParentPlatforms () {
     }
 }
 
-module.exports = getParentPlatforms
+module.exports = {getParentPlatforms}

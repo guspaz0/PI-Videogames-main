@@ -44,7 +44,7 @@ export default function CardDetail() {
                 return <li key={index}>{x.platform.name}</li>})}
             </ul>
             <span><p>Released:</p> {released}</span>
-            <p>Rating: {rating} {Stars[Math.ceil(parseInt(rating))]}</p>
+            <p>Rating: {rating} {Stars[Math.ceil(parseInt(rating))-1]}</p>
             <ul type='square' className="Genres">
                 <lh>Genres:</lh>
                 {genres.map((x) => {
