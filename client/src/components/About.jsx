@@ -16,8 +16,10 @@ export default function About(){
             <div className='aboutMe'>
                 <h2>About App</h2>
                 <p>Este es un proyecto individual destinado a aplicar todos los conocimientos adquiridos durante el curso de Desarrollador web Full Stack de Henry.
-                al ingresar al 'Home', Muestra las primeras 100 recetas consultadas a la API de 'Spoonacular', mostrando de a 9 cards por pagina, y al hacer click en una de ellas, muestra el detalle de la card. en el 'Navbar' se incluyen filtros de ordenamiento y filtros de cards. Tambien hay un boton para crear recetas que te redirige a un formulario que el usuarios debera completar y al enviar, si todo ocurrio como se esperaba, se guardara en una api o 'backend' que contiene una base de datos SQL (postgres) localmente, diferente al de Spoonacular
-                </p>
+                Dispone de un Landing page con una imagen de fondo representativa al proyecto y incluye un boton que redirigira al usuario al Home Page.
+                el Home page esta compuesto por un componente "NavBar" el cual contiene botones para crear videojuegos y buscar juegos por nombre, tanto para las de origin del API de RAWG.io y las de la base de datos local.
+                Abajo del navba, se muestran los filtros y valores de ordenamiento para las card, se puede filtrar por origen de las card y por generos de juego. por cada filtro que se aplique, se iran filtrando sucesivamente las mismas card del anterior, dispone de una opcion de reset para que elimine los filtros. despues de aplicar cada filtro, la app ordenara las card segun el orden seleccionado. se puede ordenar por mayor popularidad (rating) o por orden alfabetico.
+                En el navbar esta disponibleel boton "create videogame" el cual redirigira al usuario a un formulario de creacion el cual cada campo es validado por javascript, para controlar que los datos que recibamos sean los esperamos.</p>
                 <h3>Tecnologias usadas en esta App:</h3>
             <span className='aptitudes'>
                 {aptitudes.map((e,index) => {return <h5 key={index} className='imgtext'>{e}{"\n"}<img src={IMAGES[e]} alt={e}/></h5>})}

@@ -13,17 +13,6 @@ export default function Form() {
 
     const Parent_platforms = Platforms.map((e) => {return {id: e.id, name: e.name, platforms: []}})
 
-    //const [Search, setSearch] = React.useState()
-
-    // React.useEffect(() => {
-    //     if(Genres.length === 0) {
-    //         dispatch(getGenres())
-    //     }
-    //     if (Platforms.length === 0) {
-    //         dispatch(getPlatforms())
-    //     }
-    // }, [dispatch])
-
     const [Form, setForm] = React.useState({
             name: null,
             background_image: "",
