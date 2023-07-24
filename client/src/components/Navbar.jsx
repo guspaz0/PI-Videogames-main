@@ -54,6 +54,11 @@ export default function Navbar() {
                     <button>To Home</button>
                 </NavLink>
             }
+            {location.pathname === '/about' && 
+                <NavLink to='/home'>
+                    <button>To Home</button>
+                </NavLink>
+            }
         </NavbarStyle>
     )
 }
