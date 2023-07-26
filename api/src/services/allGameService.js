@@ -27,7 +27,6 @@ async function allGameService(name) {
           genres: genres
         })
       )
-      //console.log(arrayOfSearchGames)
       return arrayOfSearchGames
     } else {
       let promises = [1, 2, 3, 4].map(

@@ -1,4 +1,3 @@
-//const { Videogame, Genres } = require('../db');
 const {allGameService, GameID, allGameDB, GameByIdDB, createVideogame} = require('../services');
 
 async function getAllvideogames(req,res) {
@@ -7,12 +6,9 @@ async function getAllvideogames(req,res) {
     try{
         if (name) {
             const gamesAPI = await allGameService(name)
-            //console.log(gamesAPI)
-            const gamesDB = await searchGameNameDB(name)
-            //console.log(gamesDB)
-            //const allResults = [...gamesAPI, ...gamesDB]
-            //console.log(gamesAPI)
-            if (gamesAPI.length > 0 && gamesDB.length > 0) {
+            const gamesDB = await allGameDB(name)
+
+            if (gamesAPI && gamesDB) {
                 const Allgames = [...gamesAPI, ...gamesDB]
                 res.status(200).json(Allgames)
             } else if (gamesAPI.length > 0) {

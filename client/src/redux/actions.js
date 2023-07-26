@@ -45,14 +45,12 @@ export function findVideogames(name){
     return async function (dispatch) {
         try{    
             const { data } = await Axios.get(`http://${VITE_DB_HOST}:${VITE_DB_PORT}/videogames?name=${name}`);
-            console.log(data)
             if (data) {
                 dispatch({
                     type: FIND_VIDEOGAMES_BY_NAME,
                     payload: data
                 })
             }
-            
         } catch (error) {
             return error.response
         }
