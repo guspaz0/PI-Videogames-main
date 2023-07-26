@@ -18,14 +18,15 @@ export default function Navbar() {
         e.preventDefault()
         const input = document.querySelector('input[name=searchVideogame]')
         dispatch(findVideogames(input.value))
-        .then((data) => {
-            if (data.status === 404) {
-                alert(`${data.data.message}🦖`)
-            } else {
-                dispatch(orderVideogames(Order))
-                dispatch(filterVideogames('default'))
-            }
-        })
+        // .then((data) => {
+        //     console.log(data)
+        //     if (data.status === 404) {
+        //         alert(`${data.data.message}🦖`)
+            // } else {
+            //     dispatch(orderVideogames(Order))
+            //     dispatch(filterVideogames('default'))
+            //}
+        //})
         input.value = null
     }
 

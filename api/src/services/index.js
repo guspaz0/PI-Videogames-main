@@ -1,7 +1,15 @@
 const {GameID} = require('./idgame')
-const {GenresAPI} = require('./genres')
-const {searchGameName, searchGameNameDB} = require('./searchgame')
+const {GenresAPI, initializeDB} = require('./genres')
+const {allGameDB, GameByIdDB} = require('./gamesDB')
 const {allGameService} = require('./allGameService')
 const {getParentPlatforms} = require('./platforms')
+const {createVideogame} = require('./createGame')
 
-module.exports = { GameID, GenresAPI, searchGameName, searchGameNameDB, allGameService, getParentPlatforms }
+module.exports = { 
+    GameID,
+    GenresAPI, initializeDB,
+    allGameDB, GameByIdDB,
+    allGameService,
+    getParentPlatforms,
+    createVideogame,
+}

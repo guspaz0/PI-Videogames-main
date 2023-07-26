@@ -1,6 +1,7 @@
 require("dotenv").config()
 const { URL, KEY } = process.env;
 const Axios = require('axios');
+const {Genres} = require('../db')
 
 async function GenresAPI() {
     try{
@@ -14,4 +15,12 @@ async function GenresAPI() {
     }
 }
 
-module.exports = {GenresAPI}
+async function initializeDB () {
+    try {
+        await Genres.bulkCreate(await GenresAPI())
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+module.exports = {GenresAPI, initializeDB}
